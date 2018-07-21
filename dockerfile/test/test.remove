@@ -1,0 +1,7 @@
+FROM ubuntu:16.04
+
+# 该层 41.8MB，目前一共 1.21GB
+RUN apt-get install -y wget
+
+# 镜像并未减小，反而增大 461kB
+RUN apt-get remove -y wget
