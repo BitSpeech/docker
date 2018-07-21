@@ -1,7 +1,7 @@
-# 镜像名：     bitspeech/tensor2tensor:1.6.6
-# 编译镜像：   docker build -f bazel-tensorflow1.8.0  . -t bitspeech/bazel:tensorflow1.8.0
-# 镜像大小:    3.37GB
-# 基础镜像大小: 2.95GB
+# name：     bitspeech/bazel:tensorflow1.8.0
+# build：    docker build -f bazel-tensorflow1.8.0  . -t bitspeech/bazel:tensorflow1.8.0
+# size:      3.37GB
+# base-size: 2.95GB
 FROM tensorflow/tensorflow:1.8.0-gpu
 LABEL maintainer "xusong <song.xu01@bitmain.com>"
 
