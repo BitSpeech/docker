@@ -33,7 +33,7 @@ EXPOSE 8888
 
 WORKDIR "/root/"
 
-CMD ["jupyter notebook", "--allow-root"]
+CMD ["jupyter", "notebook", "--allow-root"]
 
 
 
