@@ -1,5 +1,5 @@
+# google colab
 #
-# 
 
 FROM tensorflow/tensorflow:1.8.0
 LABEL maintainer "xusong <song.xu01@bitmain.com>"
@@ -9,7 +9,7 @@ LABEL maintainer "xusong <song.xu01@bitmain.com>"
 #         rm /etc/apt/sources.list.d/cuda.list
 
 
-RUN apt-get install -y --no-install-recommends\
+RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential vim git wget ffmpeg sox && \
         apt-get clean && \
         rm -rf /var/lib/apt/lists/*
