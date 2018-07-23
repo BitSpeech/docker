@@ -7,15 +7,22 @@ FROM tensorflow/tensorflow:1.8.0-gpu
 LABEL maintainer "xusong <song.xu01@bitmain.com>"
 
 
-RUN rm /etc/apt/sources.list.d/nvidia-ml.list && \
-        rm /etc/apt/sources.list.d/cuda.list
-
-
-# 该层 35.2M
 RUN apt-get update && apt-get install -y --no-install-recommends\
         build-essential vim wget && \
         apt-get clean && \
         rm -rf /var/lib/apt/lists/*
+
+
+# NLP lib
+RUN pip install -U pip && pip install --no-cache-dir \
+        jieba six
+
+
+# CV lib
+
+
+# Speech lib
+
 
 WORKDIR "/root/"
 

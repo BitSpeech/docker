@@ -1,6 +1,9 @@
-# name:     bitspeech/tensor2tensor:1.6.6
-# build:    docker build -f Dockerfile.gpu  . -t bitspeech/tensor2tensor:1.6.6-gpu
-FROM tensorflow/tensorflow:1.8.0-py3
+# reference: https://github.com/googlecolab/backend-container/blob/master/containers/Dockerfile
+#
+#
+
+
+FROM tensorflow/tensorflow:1.8.0
 LABEL maintainer "xusong <song.xu01@bitmain.com>"
 
 # if got error when apt-get udpate, try to uncomment the following lines
@@ -9,6 +12,7 @@ LABEL maintainer "xusong <song.xu01@bitmain.com>"
 
 
 # install google-cloud-sdk
+# reference:
 RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
         echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list  && \
         curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -  && \
@@ -25,12 +29,15 @@ RUN apt-get install -y --no-install-recommends\
 RUN pip install -U pip && pip install -U --no-cache-dir \
         tensor2tensor==1.6.6 \
         jieba six pydub \
-        colab jupyter_http_over_ws google-cloud-storage && \
+        colab jupyter_http_over_ws google-cloud-storage portpicker && \
         jupyter serverextension enable --py jupyter_http_over_ws
 
-# install colab tools
+# install colabtools
+# reference: https://github.com/googlecolab/backend-container/blob/master/containers/Dockerfile
 RUN git clone https://github.com/googlecolab/colabtools.git && \
-        cd colabtools && python setup.py install
+        cd colabtools && python setup.py sdist && \
+        python -m pip install dist/google-colab-0.0.1a1.tar.gz  && \
+        jupyter nbextension install --py google.colab
 
 
 # download notebook
@@ -47,6 +54,8 @@ EXPOSE 6006
 EXPOSE 8888
 
 WORKDIR "/root/"
+
+# jupyter notebook --allow-root --NotebookApp.allow_origin='https://colab.research.google.com'
 
 CMD ["jupyter", "notebook", "--allow-root", "--NotebookApp.allow_origin='https://colab.research.google.com'"]
 
