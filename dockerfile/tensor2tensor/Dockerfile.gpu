@@ -28,7 +28,7 @@ EXPOSE 8888
 
 WORKDIR "/root/"
 
-CMD ["jupyter", "notebook", "--allow-root", "--NotebookApp.allow_origin='https://colab.research.google.com'"]
+CMD ["jupyter", "notebook", "--allow-root"]
 
 
 
