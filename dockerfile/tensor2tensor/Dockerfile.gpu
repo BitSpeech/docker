@@ -3,6 +3,7 @@
 FROM tensorflow/tensorflow:1.8.0-gpu
 LABEL maintainer "xusong <song.xu01@bitmain.com>"
 
+# if got error when apt-get udpate, try to uncomment the following lines
 # RUN rm /etc/apt/sources.list.d/nvidia-ml.list && \
 #         rm /etc/apt/sources.list.d/cuda.list
 
@@ -11,10 +12,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends\
         apt-get clean && \
         rm -rf /var/lib/apt/lists/*
 
-RUN pip install -U --no-cache-dir Django && \
-        pip install --no-cache-dir --index https://mirrors.aliyun.com/pypi/simple/ \
+
+# --index https://mirrors.aliyun.com/pypi/simple/
+RUN pip install -U --no-cache-dir \
         tensor2tensor==1.6.6 \
-        jieba six pydub colab jupyter_http_over_ws && \
+        jieba six pydub Django colab jupyter_http_over_ws && \
         jupyter serverextension enable --py jupyter_http_over_ws
 
 

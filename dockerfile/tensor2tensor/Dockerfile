@@ -1,8 +1,9 @@
 # name:     bitspeech/tensor2tensor:1.6.6
 # build:    docker build -f Dockerfile.gpu  . -t bitspeech/tensor2tensor:1.6.6-gpu
-FROM tensorflow/tensorflow:1.8.0
+FROM tensorflow/tensorflow:1.8.0-py3
 LABEL maintainer "xusong <song.xu01@bitmain.com>"
 
+# if got error when apt-get udpate, try to uncomment the following lines
 # RUN rm /etc/apt/sources.list.d/nvidia-ml.list && \
 #         rm /etc/apt/sources.list.d/cuda.list
 
@@ -11,9 +12,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends\
         apt-get clean && \
         rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir --index https://mirrors.aliyun.com/pypi/simple/ \
+
+# --index https://mirrors.aliyun.com/pypi/simple/
+RUN pip install -U --no-cache-dir \
         tensor2tensor==1.6.6 \
-        jieba six pydub colab jupyter_http_over_ws
+        jieba six pydub Django colab jupyter_http_over_ws && \
+        jupyter serverextension enable --py jupyter_http_over_ws
+
 
 # download notebook
 ENV T2T_PATH=https://github.com/tensorflow/tensor2tensor/raw/v1.6.6/tensor2tensor/notebooks
@@ -30,7 +35,7 @@ EXPOSE 8888
 
 WORKDIR "/root/"
 
-CMD ["jupyter", "notebook", "--allow-root"]
+CMD ["jupyter", "notebook", "--allow-root", "--NotebookApp.allow_origin='https://colab.research.google.com'"]
 
 
 
