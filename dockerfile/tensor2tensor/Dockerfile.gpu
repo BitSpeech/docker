@@ -16,7 +16,7 @@ RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
 
 
 RUN apt-get install -y --no-install-recommends\
-        build-essential vim wget ffmpeg sox && \
+        build-essential vim git wget ffmpeg sox && \
         apt-get clean && \
         rm -rf /var/lib/apt/lists/*
 
@@ -27,6 +27,10 @@ RUN pip install -U pip && pip install -U --no-cache-dir \
         jieba six pydub \
         colab jupyter_http_over_ws google-cloud-storage && \
         jupyter serverextension enable --py jupyter_http_over_ws
+
+# install colab tools
+RUN git clone https://github.com/googlecolab/colabtools.git && \
+        cd colabtools && python setup.py install
 
 
 # download notebook
