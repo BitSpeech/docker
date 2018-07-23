@@ -7,7 +7,15 @@ LABEL maintainer "xusong <song.xu01@bitmain.com>"
 # RUN rm /etc/apt/sources.list.d/nvidia-ml.list && \
 #         rm /etc/apt/sources.list.d/cuda.list
 
-RUN apt-get update && apt-get install -y --no-install-recommends\
+
+# install google-cloud-sdk
+RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
+        echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list  && \
+        curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -  && \
+        apt-get update && apt-get install -y --no-install-recommends google-cloud-sdk
+
+
+RUN apt-get install -y --no-install-recommends\
         build-essential vim wget ffmpeg sox && \
         apt-get clean && \
         rm -rf /var/lib/apt/lists/*
@@ -16,7 +24,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends\
 # --index https://mirrors.aliyun.com/pypi/simple/
 RUN pip install -U pip && pip install -U --no-cache-dir \
         tensor2tensor==1.6.6 \
-        jieba six pydub Django colab jupyter_http_over_ws && \
+        jieba six pydub \
+        colab jupyter_http_over_ws google-cloud-storage && \
         jupyter serverextension enable --py jupyter_http_over_ws
 
 
