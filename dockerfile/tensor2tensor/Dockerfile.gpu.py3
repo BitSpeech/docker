@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends\
 
 
 # --index https://mirrors.aliyun.com/pypi/simple/
-RUN pip install -U --no-cache-dir \
+RUN pip install -U pip && pip install -U --no-cache-dir \
         tensor2tensor==1.6.6 \
         jieba six pydub Django colab jupyter_http_over_ws && \
         jupyter serverextension enable --py jupyter_http_over_ws
