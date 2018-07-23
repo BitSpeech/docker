@@ -3,7 +3,7 @@
 #
 
 
-FROM tensorflow/tensorflow:1.8.0-gpu
+FROM tensorflow/tensorflow:1.8.0
 LABEL maintainer "xusong <song.xu01@bitmain.com>"
 
 # if got error when apt-get udpate, try to uncomment the following lines
@@ -57,15 +57,3 @@ WORKDIR "/root/"
 
 
 CMD ["jupyter", "lab", "--allow-root", "--NotebookApp.allow_origin='https://colab.research.google.com'"]
-
-
-
-
-
-
-
-# Error: apt-get update
-# E: GPG error: http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64
-# Release: The following signatures were invalid: NODATA 1  NODATA 2
-# E: GPG error: http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64
-# Release: The following signatures were invalid: NODATA 1  NODATA 2
