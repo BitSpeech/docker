@@ -1,7 +1,7 @@
 # Start CPU only container
 
 ```
-$ docker run -it -p 8888:8888 bitspeech/tensor2tensor:1.6.6
+$ docker run -it -p 8888:8888 bitspeech/tensor2tensor:1.6.6-colab
 ```
 
 Go to your browser on http://localhost:8888/
@@ -11,14 +11,13 @@ Go to your browser on http://localhost:8888/
 
 Install nvidia-docker and run
 ```sh
-nvidia-docker run -it -p 8888:8888 bitspeech/tensor2tensor:1.6.6-gpu
+nvidia-docker run -it -p 8888:8888 bitspeech/tensor2tensor:1.6.6-gpu-colab
 ```
 Go to your browser on http://localhost:8888/
 
-Other versions (like release candidates, nightlies and more)
-See the list of tags. Devel docker images include all the necessary dependencies to build from source whereas the other binaries simply have TensorFlow installed.
+Other versions See the list of tags.
 
-For more details details see
+
 
 
 # Quick Start
@@ -40,7 +39,7 @@ t2t-trainer \
   --eval_steps=100
 ```
 
-see more https://github.com/tensorflow/tensor2tensor
+For more details see https://github.com/tensorflow/tensor2tensor
 
 <!--
 不同的github branch/tag代表不同的docker tag，参考 https://gitlab.com/nvidia/cuda
