@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends\
 
 RUN pip install --no-cache-dir --index https://mirrors.aliyun.com/pypi/simple/ \
         tensor2tensor==1.6.6 \
-        jieba six pydub colab
+        jieba six pydub colab jupyter_http_over_ws
 
 # download notebook
 ENV T2T_PATH=https://github.com/tensorflow/tensor2tensor/raw/v1.6.6/tensor2tensor/notebooks
