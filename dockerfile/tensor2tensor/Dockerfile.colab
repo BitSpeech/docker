@@ -1,8 +1,4 @@
-# reference: https://github.com/googlecolab/backend-container/blob/master/containers/Dockerfile
 #
-#
-
-
 FROM tensorflow/tensorflow:1.8.0
 LABEL maintainer "xusong <song.xu01@bitmain.com>"
 
