@@ -47,15 +47,12 @@ RUN mkdir -p /root/notebooks/tensor2tensor && \
         wget ${T2T_PATH}/asr_transformer.ipynb && \
         wget ${T2T_PATH}/hello_t2t-rl.ipynb && \
         wget ${T2T_PATH}/hello_t2t.ipynb && \
-
 # download tensorflow ayme notebooks
         cd /root/notebooks/ && \
         mkdir -p /root/notebooks/tensorflow-ayme && \
         git clone https://github.com/aymericdamien/TensorFlow-Examples.git && \
         mv TensorFlow-Examples/notebooks/*  /root/notebooks/tensorflow-ayme/ && \
         rm -rf TensorFlow-Examples && \
-
-
 # download tensorflow udacity notebooks
         UDA_PATH=https://github.com/tensorflow/tensorflow/raw/master/tensorflow/examples && \
         mkdir -p /root/notebooks/tensorflow-udacity && \
@@ -67,7 +64,6 @@ RUN mkdir -p /root/notebooks/tensor2tensor && \
         wget {UDA_PATH}/5_word2vec.ipynb	&& \
         wget {UDA_PATH}/6_lstm.ipynb && \
         wget {UDA_PATH}/README.md && \
-
 # download tensorflow eager notebooks
         EAGER_PATH=https://github.com/tensorflow/tensorflow/raw/master/tensorflow/contrib/eager/python/examples/notebooks && \
         mkdir -p /root/notebooks/tensorflow-udacity && \
@@ -76,19 +72,13 @@ RUN mkdir -p /root/notebooks/tensor2tensor && \
         wget {EAGER_PATH}/custom_layers.ipynb  && \
         wget {EAGER_PATH}/custom_training.ipynb && \
         wget {EAGER_PATH}/eager_basics.ipynb && \
-
 # download tensorflow cs231n notebooks
-
-
 # download tf-learn notebooks
         mkdir -p /root/notebooks/tf-learn && \
         cd /root/notebooks/tf-learn && \
         wget https://github.com/tflearn/tflearn/raw/master/examples/notebooks/spiral.ipynb && \
-
 # download pytorch notebooks
         mkdir -p /root/notebooks/pytorch && \
-
-
 # download keras notebooks
         mkdir -p /root/notebooks/keras
 
