@@ -40,13 +40,33 @@ RUN git clone https://github.com/googlecolab/colabtools.git && \
         jupyter nbextension install --py google.colab
 
 
-# download notebook
+# download tensor2tensor notebook
 ENV T2T_PATH=https://github.com/tensorflow/tensor2tensor/raw/v1.6.6/tensor2tensor/notebooks
-RUN mkdir /root/notebooks && \
-        cd /root/notebooks && \
+RUN mkdir -p /root/notebooks/tensor2tensor && \
+        cd /root/notebooks/tensor2tensor && \
         wget ${T2T_PATH}/asr_transformer.ipynb && \
         wget ${T2T_PATH}/hello_t2t-rl.ipynb && \
-        wget ${T2T_PATH}/hello_t2t.ipynb
+        wget ${T2T_PATH}/hello_t2t.ipynb && \
+
+# download tensorflow notebooks
+        cd /root/notebooks/ && \
+        mkdir -p /root/notebooks/tensorflow-ayme && \
+        git clone https://github.com/aymericdamien/TensorFlow-Examples.git && \
+        mv TensorFlow-Examples/notebooks/*  /root/notebooks/tensorflow-ayme/ && \
+        rm -rf TensorFlow-Examples && \
+
+# download tf-learn notebooks
+        mkdir -p /root/notebooks/tf-learn && \
+        cd /root/notebooks/tf-learn && \
+        wget https://github.com/tflearn/tflearn/raw/master/examples/notebooks/spiral.ipynb && \
+
+# download pytorch notebooks
+        mkdir -p /root/notebooks/pytorch && \
+
+
+# download keras notebooks
+        mkdir -p /root/notebooks/keras
+
 
 # TensorBoard
 EXPOSE 6006
