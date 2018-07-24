@@ -41,19 +41,44 @@ RUN git clone https://github.com/googlecolab/colabtools.git && \
 
 
 # download tensor2tensor notebook
-ENV T2T_PATH=https://github.com/tensorflow/tensor2tensor/raw/v1.6.6/tensor2tensor/notebooks
 RUN mkdir -p /root/notebooks/tensor2tensor && \
+        T2T_PATH=https://github.com/tensorflow/tensor2tensor/raw/v1.6.6/tensor2tensor/notebooks
         cd /root/notebooks/tensor2tensor && \
         wget ${T2T_PATH}/asr_transformer.ipynb && \
         wget ${T2T_PATH}/hello_t2t-rl.ipynb && \
         wget ${T2T_PATH}/hello_t2t.ipynb && \
 
-# download tensorflow notebooks
+# download tensorflow ayme notebooks
         cd /root/notebooks/ && \
         mkdir -p /root/notebooks/tensorflow-ayme && \
         git clone https://github.com/aymericdamien/TensorFlow-Examples.git && \
         mv TensorFlow-Examples/notebooks/*  /root/notebooks/tensorflow-ayme/ && \
         rm -rf TensorFlow-Examples && \
+
+
+# download tensorflow udacity notebooks
+        UDA_PATH=https://github.com/tensorflow/tensorflow/raw/master/tensorflow/examples && \
+        mkdir -p /root/notebooks/tensorflow-udacity && \
+        cd /root/notebooks/tensorflow-udacity && \
+        wget {UDA_PATH}/1_notmnist.ipynb && \
+        wget {UDA_PATH}/2_fullyconnected.ipynb && \
+        wget {UDA_PATH}/3_regularization.ipynb && \
+        wget {UDA_PATH}/4_convolutions.ipynb && \
+        wget {UDA_PATH}/5_word2vec.ipynb	&& \
+        wget {UDA_PATH}/6_lstm.ipynb && \
+        wget {UDA_PATH}/README.md && \
+
+# download tensorflow eager notebooks
+        EAGER_PATH=https://github.com/tensorflow/tensorflow/raw/master/tensorflow/contrib/eager/python/examples/notebooks
+        mkdir -p /root/notebooks/tensorflow-udacity && \
+        cd /root/notebooks/tensorflow-udacity && \
+        wget {EAGER_PATH}/automatic_differentiation.ipynb && \
+        wget {EAGER_PATH}/custom_layers.ipynb  && \
+        wget {EAGER_PATH}/custom_training.ipynb && \
+        wget {EAGER_PATH}/eager_basics.ipynb && \
+
+# download tensorflow cs231n notebooks
+
 
 # download tf-learn notebooks
         mkdir -p /root/notebooks/tf-learn && \

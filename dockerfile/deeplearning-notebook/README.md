@@ -1,15 +1,7 @@
 
-
-# 集成常用的notebook
-
-
-#
-
-
-
 # notebook
 
-- tensor2tensor
-- tensorflow
+- tensor2tensor 1.6.6
+- tensorflow 1.8.0
 - pytorch
 - keras
