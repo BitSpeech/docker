@@ -1,10 +1,16 @@
 
 
-# Run
+# Start CPU only container
 
 
 ```sh
-nvidia-docker run -it -p 8888:8888 bitspeech/deeplearning-notebook
+docker run -it -p 8888:8888 bitspeech/deeplearning-notebook
+```
+
+# Start GPU (CUDA) container
+
+```sh
+nvidia-docker run -it -p 8888:8888 bitspeech/deeplearning-notebook:latest-gpu
 ```
 
 # notebook
