@@ -1,8 +1,3 @@
-# reference: https://github.com/googlecolab/backend-container/blob/master/containers/Dockerfile
-#
-#
-
-
 FROM tensorflow/tensorflow:1.8.0-gpu
 LABEL maintainer "xusong <song.xu01@bitmain.com>"
 
@@ -53,6 +48,7 @@ RUN mkdir -p /root/notebooks/tensor2tensor && \
         mkdir -p /root/notebooks/tensorflow-ayme && \
         git clone https://github.com/aymericdamien/TensorFlow-Examples.git && \
         mv TensorFlow-Examples/notebooks/*  /root/notebooks/tensorflow-ayme/ && \
+        mv TensorFlow-Examples/README.md /root/notebooks/tensorflow-ayme/ && \
         rm -rf TensorFlow-Examples && \
 # download tensorflow udacity notebooks
         UDA_PATH=https://github.com/tensorflow/tensorflow/raw/master/tensorflow/examples/udacity && \

@@ -1,4 +1,3 @@
-#
 FROM tensorflow/tensorflow:1.8.0
 LABEL maintainer "xusong <song.xu01@bitmain.com>"
 
@@ -36,13 +35,50 @@ RUN git clone https://github.com/googlecolab/colabtools.git && \
         jupyter nbextension install --py google.colab
 
 
-# download notebook
-ENV T2T_PATH=https://github.com/tensorflow/tensor2tensor/raw/v1.6.6/tensor2tensor/notebooks
-RUN mkdir /root/notebooks && \
-        cd /root/notebooks && \
+# download notebooks
+RUN mkdir -p /root/notebooks/tensor2tensor && \
+# download tensor2tensor notebook
+        T2T_PATH=https://github.com/tensorflow/tensor2tensor/raw/v1.6.6/tensor2tensor/notebooks && \
+        cd /root/notebooks/tensor2tensor && \
         wget ${T2T_PATH}/asr_transformer.ipynb && \
         wget ${T2T_PATH}/hello_t2t-rl.ipynb && \
-        wget ${T2T_PATH}/hello_t2t.ipynb
+        wget ${T2T_PATH}/hello_t2t.ipynb && \
+# download tensorflow ayme notebooks
+        cd /root/notebooks/ && \
+        mkdir -p /root/notebooks/tensorflow-ayme && \
+        git clone https://github.com/aymericdamien/TensorFlow-Examples.git && \
+        mv TensorFlow-Examples/notebooks/*  /root/notebooks/tensorflow-ayme/ && \
+        mv TensorFlow-Examples/README.md /root/notebooks/tensorflow-ayme/ && \
+        rm -rf TensorFlow-Examples && \
+# download tensorflow udacity notebooks
+        UDA_PATH=https://github.com/tensorflow/tensorflow/raw/master/tensorflow/examples/udacity && \
+        mkdir -p /root/notebooks/tensorflow-udacity && \
+        cd /root/notebooks/tensorflow-udacity && \
+        wget ${UDA_PATH}/1_notmnist.ipynb && \
+        wget ${UDA_PATH}/2_fullyconnected.ipynb && \
+        wget ${UDA_PATH}/3_regularization.ipynb && \
+        wget ${UDA_PATH}/4_convolutions.ipynb && \
+        wget ${UDA_PATH}/5_word2vec.ipynb	&& \
+        wget ${UDA_PATH}/6_lstm.ipynb && \
+        wget ${UDA_PATH}/README.md && \
+# download tensorflow eager notebooks
+        EAGER_PATH=https://github.com/tensorflow/tensorflow/raw/master/tensorflow/contrib/eager/python/examples/notebooks && \
+        mkdir -p /root/notebooks/tensorflow-udacity && \
+        cd /root/notebooks/tensorflow-udacity && \
+        wget ${EAGER_PATH}/automatic_differentiation.ipynb && \
+        wget ${EAGER_PATH}/custom_layers.ipynb  && \
+        wget ${EAGER_PATH}/custom_training.ipynb && \
+        wget ${EAGER_PATH}/eager_basics.ipynb && \
+# download tensorflow cs231n notebooks
+# download tf-learn notebooks
+        mkdir -p /root/notebooks/tf-learn && \
+        cd /root/notebooks/tf-learn && \
+        wget https://github.com/tflearn/tflearn/raw/master/examples/notebooks/spiral.ipynb && \
+# download pytorch notebooks
+        mkdir -p /root/notebooks/pytorch && \
+# download keras notebooks
+        mkdir -p /root/notebooks/keras
+
 
 # TensorBoard
 EXPOSE 6006
@@ -53,3 +89,15 @@ WORKDIR "/root/"
 
 
 CMD ["jupyter", "lab", "--allow-root", "--NotebookApp.allow_origin='https://colab.research.google.com'"]
+
+
+
+
+
+
+
+# Error: apt-get update
+# E: GPG error: http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64
+# Release: The following signatures were invalid: NODATA 1  NODATA 2
+# E: GPG error: http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64
+# Release: The following signatures were invalid: NODATA 1  NODATA 2
