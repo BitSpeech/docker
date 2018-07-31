@@ -12,7 +12,7 @@ RUN rm /etc/apt/sources.list.d/nvidia-ml.list && \
         curl https://bazel.build/bazel-release.pub.gpg | apt-key add -
 
 RUN apt-get update && apt-get install -y --no-install-recommends\
-        build-essential openjdk-8-jdk bazel vim wget&& \
+        build-essential openjdk-8-jdk bazel vim wget git && \
         apt-get clean && \
         rm -rf /var/lib/apt/lists/*
 
