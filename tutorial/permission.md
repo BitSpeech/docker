@@ -1,5 +1,12 @@
 ---
-title: docker中的权限
+title: 【Docker系列】docker中的权限
+tags:
+  - docker
+  - cloud
+categories:
+  - '-docker'
+  - tutorial
+date: 2018-07-21 00:00:00
 ---
 
 # docker 客户端

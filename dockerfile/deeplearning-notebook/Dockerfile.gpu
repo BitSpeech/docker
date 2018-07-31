@@ -69,6 +69,13 @@ RUN mkdir -p /root/notebooks/tensor2tensor && \
         wget ${EAGER_PATH}/custom_layers.ipynb  && \
         wget ${EAGER_PATH}/custom_training.ipynb && \
         wget ${EAGER_PATH}/eager_basics.ipynb && \
+# download lucid notebooks
+        cd /root/notebooks/ && \
+        mkdir -p /root/notebooks/tensorflow-lucid && \
+        git clone https://github.com/tensorflow/lucid.git && \
+        mv lucid/notebooks/*  /root/notebooks/tensorflow-lucid/ && \
+        mv lucid/README.md /root/notebooks/tensorflow-lucid/ && \
+        rm -rf lucid && \
 # download tensorflow cs231n notebooks
 # download tf-learn notebooks
         mkdir -p /root/notebooks/tf-learn && \

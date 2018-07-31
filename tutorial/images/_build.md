@@ -1,6 +1,12 @@
 ---
 title: Docker镜像的构建
-date: 2018-01-01
+categories:
+  - CS
+  - cloud
+  - docker
+  - tutorial
+  - images
+date: 2018-01-01 00:00:00
 ---
 
 

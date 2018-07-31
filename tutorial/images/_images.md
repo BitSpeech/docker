@@ -1,6 +1,10 @@
 ---
 title: Docker镜像分层技术
-date: 2018-01-01
+categories:
+  - '-docker'
+  - tutorial
+  - images
+date: 2018-01-01 00:00:00
 ---
 
 
@@ -27,5 +31,5 @@ Docker对于镜像的维护类似于git对于repository的维护，都是只记�
 
 # 参考
 
-- [Docker镜像分层技术](http://www.maiziedu.com/wiki/cloud/dockerimage/)
+
 -

@@ -1,5 +1,13 @@
 ---
-title: docker的存储
+title: 【Docker系列】Docker的存储
+tags:
+  - docker
+  - cloud
+  - 写时拷贝
+categories:
+  - '-docker'
+  - tutorial
+date: 2018-07-21 00:00:00
 ---
 
 
@@ -18,14 +26,14 @@ https://docs.docker.com/storage/storagedriver/
 
 镜像层依赖于一系列的底层技术，比如文件系统(filesystems)、写时复制(copy-on-write)、联合挂载(union mounts)等
 
-![20161027203243](/uploads/86224eb33527e33bfa0ee5ba70416428/20161027203243.jpg)
+<img alt="docker的镜像分层技术" title="docker的镜像分层技术" src="/images/raw/Cloud - docker - image layer.jpg">
 
 容器层是可写层。
 
 例如：
 `docker history  tensorflow/tensorflow:1.8.0-gpu`
 
-![Picture1](/uploads/091cf3833ef1eda26489369a283df22c/Picture1.png)
+<img alt="tensorflow的镜像分层" title="tensorflow的镜像分层" src="/images/raw/Cloud - docker - image layer - tensorflow.png">
 
 - [tensorflow镜像](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/tools/docker/Dockerfile.gpu)
 - [nvidia-cuda镜像](https://gitlab.com/nvidia/cuda/blob/ubuntu16.04/9.0/base/Dockerfile)
@@ -63,4 +71,5 @@ C++的STL中，曾经也有过Copy-On-Write的玩法，参见陈皓的《C++ STL
 
 # 参考
 
+- [Docker镜像分层技术](http://www.maiziedu.com/wiki/cloud/dockerimage/)
 - [JAVA中的COPYONWRITE容器](https://coolshell.cn/articles/11175.html)
