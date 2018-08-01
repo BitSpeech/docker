@@ -1,8 +1,4 @@
-# name：     bitspeech/bazel:tensorflow1.8.0
-# build：    docker build -f bazel-tensorflow1.8.0  . -t bitspeech/bazel:tensorflow1.8.0
-# size:      3.37GB
-# base-size: 2.95GB
-FROM tensorflow/tensorflow:1.8.0-gpu
+FROM tensorflow/tensorflow:1.9.0-gpu
 LABEL maintainer "xusong <song.xu01@bitmain.com>"
 
 RUN rm /etc/apt/sources.list.d/nvidia-ml.list && \
