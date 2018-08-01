@@ -50,6 +50,12 @@ RUN mkdir -p /root/notebooks/tensor2tensor && \
         mv TensorFlow-Examples/notebooks/*  /root/notebooks/tensorflow-ayme/ && \
         mv TensorFlow-Examples/README.md /root/notebooks/tensorflow-ayme/ && \
         rm -rf TensorFlow-Examples && \
+# download tensorflow model notebooks
+        cd /root/notebooks/ && \
+        mkdir -p /root/notebooks/tensorflow-model && \
+        git clone https://github.com/tensorflow/models.git && \
+        mv models/samples/core/*  /root/notebooks/tensorflow-model/ && \
+        rm -rf models && \
 # download tensorflow udacity notebooks
         UDA_PATH=https://github.com/tensorflow/tensorflow/raw/master/tensorflow/examples/udacity && \
         mkdir -p /root/notebooks/tensorflow-udacity && \
@@ -63,8 +69,8 @@ RUN mkdir -p /root/notebooks/tensor2tensor && \
         wget ${UDA_PATH}/README.md && \
 # download tensorflow eager notebooks
         EAGER_PATH=https://github.com/tensorflow/tensorflow/raw/master/tensorflow/contrib/eager/python/examples/notebooks && \
-        mkdir -p /root/notebooks/tensorflow-udacity && \
-        cd /root/notebooks/tensorflow-udacity && \
+        mkdir -p /root/notebooks/tensorflow-eager && \
+        cd /root/notebooks/tensorflow-eager && \
         wget ${EAGER_PATH}/automatic_differentiation.ipynb && \
         wget ${EAGER_PATH}/custom_layers.ipynb  && \
         wget ${EAGER_PATH}/custom_training.ipynb && \
