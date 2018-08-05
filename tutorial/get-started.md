@@ -128,7 +128,8 @@ docker rm -f $(docker ps -a -q)
 - 不用的镜像及时删除
 - 不用的容器及时退出
 
-** 扩展阅读 **
+**扩展阅读**
+
 - [操作 Docker 容器 | Docker从入门到实践](https://yeasy.gitbooks.io/docker_practice/container/)
 
 
