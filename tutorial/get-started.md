@@ -9,6 +9,31 @@ categories:
 date: 2018-07-21 00:00:00
 ---
 
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+1. [环境配置的难题](#环境配置的难题)
+- [简介 & 简单原理](#简介-简单原理)
+	- [Docker concepts](#docker-concepts)
+- [基本操作](#基本操作)
+	- [关于镜像的基本操作](#关于镜像的基本操作)
+	- [关于容器的基本操作](#关于容器的基本操作)
+	- [使用建议](#使用建议)
+	- [扩展阅读](#扩展阅读)
+- [定制自己的镜像 - Dockerfile](#定制自己的镜像-dockerfile)
+	- [自己写dockerfile](#自己写dockerfile)
+	- [build images](#build-images)
+	- [docker镜像升级](#docker镜像升级)
+	- [Dockerfile 优化](#dockerfile-优化)
+- [练习](#练习)
+	- [关于镜像的操作](#关于镜像的操作)
+	- [关于容器的基本操作](#关于容器的基本操作)
+	- [Dockerfile相关](#dockerfile相关)
+	- [思考题](#思考题)
+- [扩展阅读](#扩展阅读)
+
+<!-- /TOC -->
+
+
 
 # 环境配置的难题
 
