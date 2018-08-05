@@ -18,7 +18,6 @@ date: 2018-07-21 00:00:00
 	1. [关于镜像的基本操作](#关于镜像的基本操作)
 	1. [关于容器的基本操作](#关于容器的基本操作)
 	1. [使用建议](#使用建议)
-	1. [扩展阅读](#扩展阅读)
 1. [定制自己的镜像 - Dockerfile](#定制自己的镜像-dockerfile)
 	1. [自己写dockerfile](#自己写dockerfile)
 	1. [build images](#build-images)
@@ -129,7 +128,7 @@ docker rm -f $(docker ps -a -q)
 - 不用的镜像及时删除
 - 不用的容器及时退出
 
-## 扩展阅读
+** 扩展阅读 **
 - [操作 Docker 容器 | Docker从入门到实践](https://yeasy.gitbooks.io/docker_practice/container/)
 
 
