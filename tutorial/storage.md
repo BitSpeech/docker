@@ -67,9 +67,36 @@ C++的STL中，曾经也有过Copy-On-Write的玩法，参见陈皓的《C++ STL
 # 数据持久化
 
 
+# 配置本地镜像与容器的存储位置
+
+默认情况下Docker的存放位置为：/var/lib/docker
+可以通过下面命令查看具体位置：
+```sh
+docker info | grep "Docker Root Dir"
+```
+
+解决这个问题，最直接的方法当然是挂载分区到这个目录，但是我的数据盘还有其他东西，这肯定不好管理，所以采用修改镜像和容器的存放路径的方式达到目的。
+
+这个方法里将通过软连接来实现。
+
+首先停掉Docker服务：
+```sh
+systemctl restart docker
+或者
+service docker stop
+```
+然后移动整个/var/lib/docker目录到目的路径：
+
+```sh
+mv /var/lib/docker /root/data/docker
+ln -s /root/data/docker /var/lib/docker
+```
+
+这时候启动Docker时发现存储目录依旧是/var/lib/docker，但是实际上是存储在数据盘的，你可以在数据盘上看到容量变化。
 
 
 # 参考
 
 - [Docker镜像分层技术](http://www.maiziedu.com/wiki/cloud/dockerimage/)
 - [JAVA中的COPYONWRITE容器](https://coolshell.cn/articles/11175.html)
+- [Docker配置本地镜像与容器的存储位置](https://blog.csdn.net/wenwenxiong/article/details/78728696)

@@ -126,7 +126,9 @@ docker rm -f $(docker ps -a -q)
 
 **注意**
 
-- `CMD`与 `ENTRYPOINT` 的区别：<br>`CMD`不能接受参数，运行时可被覆盖；<br> `ENTRYPOINT`能够接收参数，运行时不可被覆盖
+- `CMD`与 `ENTRYPOINT` 的区别：
+  - `CMD`不能接受参数，运行时可被覆盖；
+  - `ENTRYPOINT`能够接收参数，运行时不可被覆盖
 - `COPY`与映射`-v`的区别
 
 [示例dockerfile](dockerfile/dockerfile.tf1.8-t2t1.6)
