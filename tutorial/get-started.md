@@ -168,7 +168,7 @@ cat dockerfile | docker build -
 
 # 练习
 
-登录服务器`ssh docker1@10.31.39.12`
+登录服务器`ssh docker1@**.**.**.12`
 
 ## 关于镜像的操作
 
@@ -183,7 +183,7 @@ https://hub.docker.com/r/tensorflow/tensorflow/
 
 
 optinal:
-- **httpd**： 利用docker搭一个http server
+- **httpd**: 利用docker搭一个http server
 - **gitlab**: 利用docker搭一个gitlab server
 - **kaldi**: 利用docker跑kaldi
 - **pytorch**: 利用docker跑pytorch
