@@ -17,7 +17,7 @@ RUN echo "deb [arch=amd64] http://storage.googleapis.com/tensorflow-serving-apt 
 
 # --index https://mirrors.aliyun.com/pypi/simple/
 RUN pip install -U pip && pip install --no-cache-dir \
-        tensor2tensor==1.6.6 \
+        tensor2tensor==1.6.6 tensorflowjs \
         jieba six
 
 
