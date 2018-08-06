@@ -6,6 +6,7 @@ tags:
 categories:
   - '-docker'
   - tutorial
+abbrlink: 19bc9ce2
 date: 2018-07-21 00:00:00
 ---
 
