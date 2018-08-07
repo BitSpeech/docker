@@ -10,7 +10,7 @@ LABEL maintainer "xusong <song.xu01@bitmain.com>"
 RUN echo "deb [arch=amd64] http://storage.googleapis.com/tensorflow-serving-apt stable tensorflow-model-server tensorflow-model-server-universal" | tee /etc/apt/sources.list.d/tensorflow-serving.list && \
         curl https://storage.googleapis.com/tensorflow-serving-apt/tensorflow-serving.release.pub.gpg | apt-key add - && \
 # install nodejs npm
-        curl -sL https://deb.nodesource.com/setup_10.x | bash - \ &&
+        curl -sL https://deb.nodesource.com/setup_10.x | bash -  && \
 # install yarn
         curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
         echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
