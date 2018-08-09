@@ -15,18 +15,18 @@ RUN echo "deb [arch=amd64] http://storage.googleapis.com/tensorflow-serving-apt 
         curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
         echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
         apt-get update && apt-get install -y --no-install-recommends \
-        build-essential vim tensorflow-model-server nodejs yarn ffmpeg sox && \
+        build-essential vim nodejs yarn ffmpeg sox && \
         apt-get clean && \
         rm -rf /var/lib/apt/lists/*
-
+# apt-get install tensorflow-model-server
 
 # --index https://mirrors.aliyun.com/pypi/simple/
 RUN pip install -U pip && pip install --no-cache-dir \
-        tensor2tensor==1.6.6 tensorflow-serving-api \
+        tensor2tensor==1.6.6  \
         jieba six
 
-# pip install tensorflowjs 会覆盖tensorflow-gpu
-
+# pip install tensorflowjs 会覆盖tensorflow-gpu，并安装tensorflow==1.9.0。很恶心
+# pip install tensorflow-serving-api
 
 # TensorBoard
 EXPOSE 6006
