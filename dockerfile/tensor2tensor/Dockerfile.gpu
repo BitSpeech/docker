@@ -9,33 +9,35 @@ LABEL maintainer "xusong <song.xu01@bitmain.com>"
 # install tensorflow_model_server https://www.tensorflow.org/serving/setup#installing_the_modelserver
 RUN echo "deb [arch=amd64] http://storage.googleapis.com/tensorflow-serving-apt stable tensorflow-model-server tensorflow-model-server-universal" | tee /etc/apt/sources.list.d/tensorflow-serving.list && \
         curl https://storage.googleapis.com/tensorflow-serving-apt/tensorflow-serving.release.pub.gpg | apt-key add - && \
-# install nodejs npm (nodejs的包管理器)
+# install nodejs npm yarn (nodejs的包管理器)
         curl -sL https://deb.nodesource.com/setup_10.x | bash -  && \
-# install yarn (nodejs的包管理器)
         curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
         echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
         apt-get update && apt-get install -y --no-install-recommends \
-        build-essential vim nodejs yarn ffmpeg sox && \
+        build-essential vim nodejs yarn ffmpeg sox autoconf automake libtool && \
         apt-get clean && \
         rm -rf /var/lib/apt/lists/*
 # apt-get install tensorflow-model-server
 
 
-# install protobuf
-# https://github.com/google/protobuf/blob/master/src/README.md
-RUN apt-get install -y autoconf automake libtool curl make g++ unzip && \
-        git clone https://github.com/google/protobuf.git && \
+# install protobuf:  https://github.com/google/protobuf/blob/master/src/README.md
+RUN git clone https://github.com/google/protobuf.git && \
         cd protobuf && \
         git submodule update --init --recursive && \
         ./autogen.sh && ./configure && \
-        make && make check && make install && ldconfig && \
-
-
+        make && make check && make install && ldconfig
 
 # --index https://mirrors.aliyun.com/pypi/simple/
 RUN pip install -U pip && pip install --no-cache-dir \
         tensor2tensor==1.7.0  \
-        jieba six tensorflowjs tensorflow-serving-api
+        jieba tensorflowjs tensorflow-serving-api
+
+# build tensorflow for C++:
+RUN git clone https://github.com/tensorflow/tensorflow tensorflow-1.10 && \
+        cd tensorflow-1.10 && git checkout r1.10 && \
+        ./configure -y && \
+        bazel build --config=opt --config=cuda //tensorflow:libtensorflow_cc.so
+
 
 
 # TensorBoard
