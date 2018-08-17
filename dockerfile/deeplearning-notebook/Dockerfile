@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:1.8.0
+FROM tensorflow/tensorflow:1.10.0
 LABEL maintainer "xusong <song.xu01@bitmain.com>"
 
 # if got error when apt-get udpate, try to uncomment the following lines

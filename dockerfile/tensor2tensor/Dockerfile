@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:1.8.0-devel
+FROM tensorflow/tensorflow:1.10.0-devel
 LABEL maintainer "xusong <song.xu01@bitmain.com>"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
