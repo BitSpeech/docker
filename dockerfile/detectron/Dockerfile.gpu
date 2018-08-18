@@ -7,17 +7,31 @@ RUN mv /usr/local/caffe2 /usr/local/caffe2_build
 ENV Caffe2_DIR /usr/local/caffe2_build
 ENV PYTHONPATH /usr/local/caffe2_build:${PYTHONPATH}
 ENV LD_LIBRARY_PATH /usr/local/caffe2_build/lib:${LD_LIBRARY_PATH}
+ENV Software_DIR /download
 
-# Install Detectron
-RUN git clone https://github.com/facebookresearch/detectron /detectron && \
-        pip install -r /detectron/requirements.txt && \
-        git clone https://github.com/cocodataset/cocoapi.git /cocoapi && \
-        cd /cocoapi/PythonAPI  && \
+# Install Detectron &  COCO API
+RUN mkdir ${Software_DIR} && \
+        git clone https://github.com/facebookresearch/detectron ${Software_DIR}/detectron && \
+        pip install -r ${Software_DIR}/detectron/requirements.txt && \
+        git clone https://github.com/cocodataset/cocoapi.git ${Software_DIR}/cocoapi && \
+        cd ${Software_DIR}/cocoapi/PythonAPI  && \
         make install && \
-        cd /detectron && make && make ops
+        cd ${Software_DIR}/detectron && make && make ops
 
-RUN pip install pydot
 
+###### Add by xusong ######
+
+# Install Densepose: https://github.com/facebookresearch/DensePose/blob/master/INSTALL.md#densepose
+RUN git clone https://github.com/facebookresearch/densepose ${Software_DIR}/densepose && \
+        cd ${Software_DIR}/densepose && \
+        pip install -r requirements.txt && \
+        make && make ops
+
+# Install others
+RUN pip install pydot jupyterlab
+
+RUN apt-get update && \
+        apt-get install wget vim
 
 # TensorBoard
 EXPOSE 6006
@@ -27,4 +41,4 @@ EXPOSE 8888
 WORKDIR "/root/"
 
 
-CMD ["jupyter", "lab", "--allow-root"]
+CMD ["jupyter", "lab", "--ip=127.0.0.1", "--allow-root"]
