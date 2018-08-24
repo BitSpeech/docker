@@ -32,7 +32,7 @@ RUN git clone https://github.com/facebookresearch/densepose ${Software_DIR}/dens
 RUN pip install pydot jupyterlab
 
 RUN apt-get update && \
-        apt-get install wget vim
+        apt-get install -y wget vim
 
 # TensorBoard
 EXPOSE 6006
