@@ -20,12 +20,15 @@ nvidia-docker run --rm -it bitspeech/detectron:c2-cuda9-cudnn7 python2 detectron
 ## Inference with Pretrained Models
 
 ```sh
+# 12服务器
+# cd tutorial
 nvidia-docker run --rm -it \
   -p 8888:8888 \
   -v `pwd`:/root \
   bitspeech/detectron:c2-cuda9-cudnn7 bash
 ```
 
+## DenseNet
 
 
 # Dockerfile

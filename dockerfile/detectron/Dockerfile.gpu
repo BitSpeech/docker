@@ -22,6 +22,7 @@ RUN mkdir ${Software_DIR} && \
 ###### Add by xusong ######
 
 # Install Densepose: https://github.com/facebookresearch/DensePose/blob/master/INSTALL.md#densepose
+#                    https://github.com/facebookresearch/DensePose/blob/master/docker/Dockerfile
 RUN git clone https://github.com/facebookresearch/densepose ${Software_DIR}/densepose && \
         cd ${Software_DIR}/densepose && \
         pip install -r requirements.txt && \
