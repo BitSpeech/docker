@@ -1,4 +1,5 @@
 # fork from https://github.com/pytorch/ELF/blob/master/Dockerfile
+# 包含 elf LeelaZero sru
 FROM ubuntu:18.04
 
 # Due to nVidia not officially supporting CUDA 9.0 in Ubuntu 18.04
@@ -70,6 +71,15 @@ RUN bash -c "source activate base && make -j4"
 
 # Install the pretrained model
 ADD https://github.com/pytorch/ELF/releases/download/pretrained-go-19x19-v0/pretrained-go-19x19-v0.bin ${ELF_FOLDER}/ELF
+
+
+# Install sru
+RUN git clone https://github.com/taolei87/sru.git && \
+        cd sru && pip install -r requirements.txt && \
+        python setup.py install && \
+        cd .. && rm -rf sru
+
+
 
 # Set up the interactive environment
 CMD bash
