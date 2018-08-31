@@ -1,0 +1,14 @@
+From floydhub/pytorch:0.4.0-gpu.cuda9cudnn7-py3
+
+
+# Install sru
+RUN cd /root && git clone https://github.com/taolei87/sru.git && \
+        cd sru && pip install -r requirements.txt && \
+        python setup.py install && \
+        cd .. && rm -rf sru
+
+
+
+# Set up the interactive environment
+WORKDIR "/root/"
+CMD bash
