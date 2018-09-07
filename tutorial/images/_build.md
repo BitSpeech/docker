@@ -36,7 +36,7 @@ date: 2018-01-01 00:00:00
 
 
 ```sh
-docker build -f dockerfile . -t bitspeech/tensor2tensor
+docker build -f dockerfile . -t bitspeech/pytorch
 ```
 
 
