@@ -10,6 +10,8 @@ abbrlink: 19bc9ce2
 date: 2018-07-21 00:00:00
 ---
 
+<details>
+<summary><strong><em>Table of Contents</em></strong></summary>
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 1. [环境配置的难题](#环境配置的难题)
@@ -32,6 +34,7 @@ date: 2018-07-21 00:00:00
 1. [扩展阅读](#扩展阅读)
 
 <!-- /TOC -->
+</details>
 
 
 
