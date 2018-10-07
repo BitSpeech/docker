@@ -1,12 +1,12 @@
----
-title: Docker架构
-date: 2018-07-21
-categories:
-  - CS
-  - cloud
-  - docker
-  - tutorial
----
 
 
 ![architecture](https://docs.docker.com/engine/images/architecture.svg)
+
+
+# 启动
+关闭docker
+systemctl start docker.service
+
+重新启动容器
+
+systemctl start docker.service

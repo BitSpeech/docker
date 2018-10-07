@@ -1,11 +1,4 @@
----
-title: Docker 服务
-categories:
-  - CS
-  - cloud
-  - docker
-  - tutorial
----
+
 
 ```sh
 $ docker images

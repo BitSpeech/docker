@@ -1,12 +1,4 @@
----
-title: Docker registry
-date: 2018-07-21
-categories:
-  - CS
-  - cloud
-  - docker
-  - tutorial
----
+
 
 
 参考 https://blog.csdn.net/M2l0ZgSsVc7r69eFdTj/article/details/78538819

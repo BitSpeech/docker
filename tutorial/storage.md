@@ -96,6 +96,35 @@ ln -s /root/data/docker /var/lib/docker
 这时候启动Docker时发现存储目录依旧是/var/lib/docker，但是实际上是存储在数据盘的，你可以在数据盘上看到容量变化。
 
 
+# docker的挂载
+
+unmount
+
+
+系统文件夹使用的是devicemapper文件系统，可以用来限制容器的磁盘使用。
+
+在devicemapper驱动下，多出两个文件，一个是 devicemapper 一个是metadata
+
+
+# 文件目录
+
+```
+/var/lib/docker# ls
+aufs
+builder
+buildkit
+containerd
+containers
+image
+network
+plugins
+runtimes
+swarm
+tmp
+trust
+volumes
+```
+
 # 参考
 
 - [Docker镜像分层技术](http://www.maiziedu.com/wiki/cloud/dockerimage/)

@@ -1,10 +1,3 @@
----
-categories:
-  - CS
-  - cloud
-  - docker
-  - tutorial
----
 
 
 # help
