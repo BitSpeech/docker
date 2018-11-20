@@ -4,38 +4,11 @@ tags:
   - docker
   - cloud
 categories:
-  - '-docker'
+  - docker
   - tutorial
 abbrlink: 19bc9ce2
 date: 2018-07-21 00:00:00
 ---
-
-<details>
-<summary><strong><em>Table of Contents</em></strong></summary>
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-
-1. [环境配置的难题](#环境配置的难题)
-1. [简介 & 简单原理](#简介-简单原理)
-	1. [Docker concepts](#docker-concepts)
-1. [基本操作](#基本操作)
-	1. [关于镜像的基本操作](#关于镜像的基本操作)
-	1. [关于容器的基本操作](#关于容器的基本操作)
-	1. [使用建议](#使用建议)
-1. [定制自己的镜像 - Dockerfile](#定制自己的镜像-dockerfile)
-	1. [自己写dockerfile](#自己写dockerfile)
-	1. [build images](#build-images)
-	1. [docker镜像升级](#docker镜像升级)
-	1. [Dockerfile 优化](#dockerfile-优化)
-1. [练习](#练习)
-	1. [关于镜像的操作](#关于镜像的操作)
-	1. [关于容器的基本操作](#关于容器的基本操作)
-	1. [Dockerfile相关](#dockerfile相关)
-	1. [思考题](#思考题)
-1. [扩展阅读](#扩展阅读)
-
-<!-- /TOC -->
-</details>
-
 
 
 # 环境配置的难题
@@ -81,8 +54,6 @@ docker rmi img_id      # 删除镜像
 docker rmi -f $(docker images -q)  # 删除所有镜像
 docker pull repository:tag    # 拉取镜像，类似 git pull
 docker push repository:tag    # 上传镜像，类似git push
-
-
 ```
 
 ## 关于容器的基本操作
@@ -116,13 +87,18 @@ docker exec -it container_id bash  # 重新创建一个bash
 docker rm container_id
 # 8. 删除所有容器
 docker rm -f $(docker ps -a -q)
+# 9. Copy a file from host to container 注意区别dockerfile的COPY命令
+docker cp foo.txt 72ca2488b353:/foo.txt
 ```
 
 
 
-**注意**：
-- `attach` 与 `exec`的区别
-- `ctrl+p+q` 与 `ctrl+d`的区别
+{% note danger %}**思考**
+`attach` 与 `exec`的区别
+`docker cp` 与 dockerfile中的`COPY`的区别
+`ctrl+p+q` 与 `ctrl+d`的区别  <!-- ctrl+p+q 后台运行容器，ctrl+d 退出容器 -->
+`exit`退出容器后，为什么容器并未删除？ <!-- 也许是为了保存状态，便于commit -->
+{% endnote %}
 
 ## 使用建议
 
@@ -178,18 +154,18 @@ cat dockerfile | docker build -
 ## docker镜像升级
 
 - 更改 & commit的方式   (不推荐)
+  - 一定不要用别人commit的镜像，是坑，用的时间越长坑越多
 - 更改`dockerfile`，重新build镜像   (推荐)
 
 
-## Dockerfile 优化
-
-
+{% note %}**Dockerfile的优化技巧**
 - `apt-get install`之前先`apt-get update`
-- 尽量选取满足需求但较小的基础系统镜像，建议选择debian:wheezy镜像，仅有86MB大小
-- 清理编译生成文件、安装包的缓存等临时文件
-- 安装各个软件时候要指定准确的版本号，并避免引入不需要的依赖
+- 尽量选取**满足需求但较小**的`基础镜像`，(比如`debian:wheezy`，仅有86MB大小)
+- **清理**编译生成文件、安装包的缓存等临时文件
+- 安装各个软件时候要**指定准确的版本号**，并避免引入不需要的依赖
 - 从安全的角度考虑，应用尽量使用系统的库和依赖
 - 使用Dockerfile创建镜像时候要添加.dockerignore文件或使用干净的工作目录
+{% endnote %}
 
 **扩展阅读**:
 - [Best practices for writing Dockerfiles | 官网](https://docs.docker.com/develop/develop-images/dockerfile_best-practices)
@@ -224,13 +200,15 @@ optinal:
 1. 找到`nvidia/cuda`的dockerfile，并参考
 1. 自己根据需求，修改dockerfile，build image
 
-## 思考题
-
-1. 卸载 + commit 操作，镜像会变小吗？
-1. `run yum clean cache`这样写dockerfile镜像会变小吗？
+{% note danger %}**思考**
+1. `卸载 + commit` 操作，镜像会变小吗？
+1. `run yum clean cache`这样写dockerfile，镜像会变小吗？
 1. 可以在一个容器中同时运行多个应用进程吗？
 1. Docker运行时内部删除的文件，如何恢复？
 1. `RUN rm -rf somefile ` 镜像会减小吗？[示例](https://github.com/tianon/docker-brew-ubuntu-core/blob/58cc180042b7ebec2b683576faa00c04d5d011e2/xenial/Dockerfile#L36)
+{% endnote %}
+
+
 
 # 扩展阅读
 

@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:1.11.0-devel-gpu
+FROM tensorflow/tensorflow:1.12.0-devel-gpu
 LABEL maintainer "xusong <song.xu01@bitmain.com>"
 
 # if got error when apt-get udpate, try to uncomment the following lines
@@ -36,7 +36,7 @@ RUN echo "deb [arch=amd64] http://storage.googleapis.com/tensorflow-serving-apt 
 
 # --index https://mirrors.aliyun.com/pypi/simple/
 RUN pip install -U pip && pip install --no-cache-dir \
-        tensor2tensor==1.9.0  \
+        tensor2tensor==1.11.0  \
         jieba
 # tensorflowjs tensorflow-serving-api
 

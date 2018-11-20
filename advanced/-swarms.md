@@ -1,10 +1,9 @@
 ---
 title: swarms
 categories:
-  - CS
-  - cloud
   - docker
-  - tutorial
+  - advanced
+abbrlink: ba36fb27
 ---
 
 

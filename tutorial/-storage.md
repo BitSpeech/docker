@@ -5,7 +5,7 @@ tags:
   - cloud
   - 写时拷贝
 categories:
-  - '-docker'
+  - docker
   - tutorial
 abbrlink: bb3d8549
 date: 2018-07-21 00:00:00

@@ -4,7 +4,7 @@ tags:
   - docker
   - cloud
 categories:
-  - '-docker'
+  - docker
   - tutorial
 abbrlink: 3ddeac97
 date: 2018-07-21 00:00:00
@@ -38,12 +38,6 @@ srw-rw----  1 root  docker    0 Jul  6 14:32 docker.sock   # docker server
 
 docker.sock属于docker用户组。
 
-01:57:47
-08:06:28
-
-6
-
-360+22+5=
 
 ```sh
 $ cat /etc/group | grep docker
