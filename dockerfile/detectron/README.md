@@ -38,9 +38,9 @@ build
 docker build -t bitspeech/detectron:c2-cuda9-cudnn7 .
 ```
 
-fork from https://github.com/facebookresearch/Detectron/blob/master/docker/Dockerfile
 
-https://github.com/facebookresearch/Detectron/blob/master/GETTING_STARTED.md
+# Reference
 
-
-https://github.com/facebookresearch/Detectron/blob/master/INSTALL.md#docker-image
+1. https://github.com/facebookresearch/Detectron/blob/master/docker/Dockerfile
+1. https://github.com/facebookresearch/Detectron/blob/master/GETTING_STARTED.md
+1. https://github.com/facebookresearch/Detectron/blob/master/INSTALL.md#docker-image

@@ -1,0 +1,7 @@
+FROM tensorflow/tensorflow:1.8.0-devel-gpu
+LABEL maintainer "xusong <xusong.vip@gmail.com>"
+
+# copy tensorRT
+
+
+RUN 

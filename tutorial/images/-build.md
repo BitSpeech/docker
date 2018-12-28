@@ -35,9 +35,8 @@ date: 2018-01-01 00:00:00
 
 
 ```sh
-docker build -f Dockerfile . -t bitspeech/tensor2tensor:1.9.0-gpu
+docker build -f Dockerfile . -t bitspeech/tensor2tensor:1.11-gpu
 ```
-
 
 
 ## 构建小容量Docker镜像的技巧

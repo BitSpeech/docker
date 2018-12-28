@@ -1,8 +1,8 @@
 ---
+title: 容器 VS 虚拟机
 categories:
   - docker
   - tutorial
-abbrlink: '0'
 ---
 
 
