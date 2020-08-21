@@ -1,0 +1,77 @@
+# ==================================================================
+# build & push:
+# docker build -t  ai-image.jd.com/nlp/pytorch:0.4.1-cuda9-cudnn7-runtime -f Dockerfile .
+# docker push ai-image.jd.com/nlp/pytorch:0.4.1-cuda9-cudnn7-runtime
+# ==================================================================
+
+from pytorch/pytorch:0.4.1-cuda9-cudnn7-runtime
+LABEL maintainer="XuSong <xusong28@jd.com>"
+
+
+# ========================父镜像默认环境===============================
+#
+# $ python --version
+# Python 3.6.5 :: Anaconda, Inc.
+# $ locale
+# LANG=
+# LANGUAGE=
+# LC_CTYPE="POSIX"
+# LC_NUMERIC="POSIX"
+# LC_TIME="POSIX"
+# LC_COLLATE="POSIX"
+# LC_MONETARY="POSIX"
+# LC_MESSAGES="POSIX"
+# LC_PAPER="POSIX"
+# LC_NAME="POSIX"
+# LC_ADDRESS="POSIX"
+# LC_TELEPHONE="POSIX"
+# LC_MEASUREMENT="POSIX"
+# LC_IDENTIFICATION="POSIX"
+# LC_ALL=
+#
+# $ locale -a
+# C
+# C.UTF-8
+# POSIX
+# ==================================================================
+
+
+# 设置时区
+ENV TZ=Asia/Shanghai
+
+
+# ==================================================================
+# Install Linux packages
+# ==================================================================
+RUN apt-get update && apt-get install -y --no-install-recommends \
+         wget && \
+         DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata && \
+         apt-get clean && \
+         rm -rf /var/lib/apt/lists/*
+
+
+# ==================================================================
+# Install Python Package
+# ==================================================================
+RUN pip install --no-cache-dir -i http://mirrors.jd.com/pypi/web/simple --trusted-host mirrors.jd.com \
+         flask \
+         gunicorn \
+         gevent \
+         psutil \
+         nvidia-ml-py3 \
+         tqdm \
+         nltk \
+         docopt \
+         beautifulsoup4 \
+         jieba
+
+# ========================修改默认编码===============================
+# 方式一：export PYTHONIOENCODING=UTF-8 或者utf-8
+# 方式二：import os; os.environ["PYTHONIOENCODING"] = "utf-8"
+# 相关链接：https://stackoverflow.com/questions/28405902/how-to-set-the-locale-inside-a-debian-ubuntu-docker-container
+# ==================================================================
+# 以下影响到print的默认编码和解码
+ENV PYTHONIOENCODING UTF-8
+# 以下影响到open的默认编码，影响导vim打开的默认编码
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8

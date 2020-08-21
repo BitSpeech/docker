@@ -52,6 +52,8 @@ docker inspect img_id  # 查看镜像详细信息
 docker history img_id  # 查看镜像分层
 docker rmi img_id      # 删除镜像
 docker rmi -f $(docker images -q)  # 删除所有镜像
+docker rmi $(docker images | grep '^<none>' | awk '{print $3}') # 删除所有None镜像
+docker rmi $(docker images -qf dangling=true)  #
 docker pull repository:tag    # 拉取镜像，类似 git pull
 docker push repository:tag    # 上传镜像，类似git push
 ```
@@ -78,15 +80,15 @@ ctrl+p+q    # 临时退出容器而不终止它 (不关闭bash进程)
 # 4. 查看所有正在运行的容器，并通过name找到你运行的容器
 docker ps
 # 5. 查看运行日志
-docker logs container_id
+docker logs container_id/name
 # 6. 重新进入容器
-docker attach container_id         # 进入同一个bash
+docker attach container_id/name         # 进入同一个bash
 # 或者
-docker exec -it container_id bash  # 重新创建一个bash
+docker exec -it container_id/name bash  # 重新创建一个bash
 # 7. 删除容器
-docker rm container_id
+docker rm container_id/name
 # 8. 删除所有容器
-docker rm -f $(docker ps -a -q)
+docker rm -f $(docker ps -aq)
 # 9. Copy a file from host to container 注意区别dockerfile的COPY命令
 docker cp foo.txt 72ca2488b353:/foo.txt
 ```

@@ -1,0 +1,65 @@
+# devel镜像才有nvcc. runtime 2.26G, devel 4.2G
+# from pytorch/pytorch:1.4-cuda10.1-cudnn7-runtime
+# from pytorch/pytorch:1.4-cuda10.1-cudnn7-devel
+from pytorch/pytorch:1.5.1-cuda10.1-cudnn7-devel
+
+
+# 设置时区，并需要安装 tzdata
+ENV TZ=Asia/Shanghai
+
+
+
+# ========================修改默认shell===============================
+# /bin/sh默认已经指向dash，速度更快，但功能相比bash要少很多
+#
+
+# ========================修改默认编码===============================
+# locale查看父镜像默认编码，LANG=POSIX，会出现中文乱码，因此修改为en_US.UTF-8，或者C.UTF-8 或者C
+# 方式一：export PYTHONIOENCODING=UTF-8 或者utf-8
+# 方式二：import os; os.environ["PYTHONIOENCODING"] = "utf-8"
+# 相关链接：https://stackoverflow.com/questions/28405902/how-to-set-the-locale-inside-a-debian-ubuntu-docker-container
+# ==================================================================
+# 以下影响到print的默认编码和解码(如果默认gbk，print可能会出现 gbk codec can't encode charactor **)
+ENV PYTHONIOENCODING UTF-8
+# 以下影响到open的默认编码，影响vim打开的默认编码
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
+
+# CUDA环境变量
+ENV CUDA_HOME /usr/local/cuda
+ENV PATH /usr/local/cuda/bin:$PATH
+ENV LD_LIBRARY_PATH /usr/local/cuda/lib64:$LD_LIBRARY_PATH
+
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+         wget git vim openssh-server libxml-parser-perl && \
+         DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata && \
+         apt-get clean && \
+         rm -rf /var/lib/apt/lists/*
+
+
+# 配置sshd，用于pycharm远程调试。参考 https://zhuanlan.zhihu.com/p/76469329
+# passwd修改密码，需要两段输入(用户名和密码)，
+RUN mv /etc/ssh/sshd_config /etc/ssh/sshd_config_bak && \
+         cat /etc/ssh/sshd_config_bak | sed 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' > /etc/ssh/sshd_config && \
+         echo "root:123456" | chpasswd && \
+         echo "service ssh restart" >> ~/.bashrc
+
+
+# Install fairseq, transformers, apex, pyarrow, files2rouge. 其中setup_rouge.py需要一个确认键
+# Reference: https://github.com/pytorch/fairseq/issues/1199   python setup.py build_ext --inplace &&
+RUN pip install --upgrade setuptools && \
+         cd /root/ && git clone https://github.com/pytorch/fairseq && \
+         cd fairseq && pip install --editable . && \
+         cd /root/ && git clone https://github.com/NVIDIA/apex && cd apex && \
+         pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" \
+         --global-option="--deprecated_fused_adam" --global-option="--xentropy" \
+         --global-option="--fast_multihead_attn" ./ && \
+         pip install pyarrow spacy transformers tensorboard tensorboardX sacrebleu git+https://github.com/pltrdy/pyrouge && \
+         cd /root/ && git clone https://github.com/pltrdy/files2rouge.git && \
+         cd files2rouge && echo "" | python setup_rouge.py && python setup.py install
+
+# 已经加入bashrc中
+# ENTRYPOINT ["service", "ssh", "restart"]
+
+WORKDIR "/workspace/"
