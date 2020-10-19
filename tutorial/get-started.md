@@ -123,7 +123,7 @@ docker cp foo.txt 72ca2488b353:/foo.txt
 - **FROM**: 指定基础镜像
 - **MAINTAINER**：用来指定维护者的姓名和联系方式
 - **ENV**: 设置环境变量
-- **RUN**：在shell或者exec的环境下执行的命令。RUN指令会在新创建的镜像上添加新的层
+- **RUN**：在shell或者exec的环境下执行的命令。RUN指令会在新创建的镜像上添加新的层。
 - **EXPOSE**: 指定容器在运行时监听的端口
 - **COPY**:
 - **VOLUME**: 授权访问从容器内到主机上的目录。用于containers之间共享数据
@@ -133,6 +133,7 @@ docker cp foo.txt 72ca2488b353:/foo.txt
 
 **注意**
 
+- `RUN` 指令只会在生成镜像的时候，保存数据文件，并不会保存任何运行的进程状态。比如启动某些service
 - `CMD`与 `ENTRYPOINT` 的区别：
   - `CMD`不能接受参数，运行时可被覆盖；
   - `ENTRYPOINT`能够接收参数，运行时不可被覆盖

@@ -42,8 +42,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # passwd修改密码，需要两段输入(用户名和密码)，
 RUN mv /etc/ssh/sshd_config /etc/ssh/sshd_config_bak && \
          cat /etc/ssh/sshd_config_bak | sed 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' > /etc/ssh/sshd_config && \
-         echo "root:123456" | chpasswd && \
-         echo "service ssh restart" >> ~/.bashrc
+         echo "root:123456" | chpasswd
+
+# 不需要这一样，因为容器启动时默认启动ssh
+# RUN echo "service ssh restart" >> ~/.bashrc
 
 
 # Install fairseq, transformers, apex, pyarrow, files2rouge. 其中setup_rouge.py需要一个确认键
@@ -55,11 +57,9 @@ RUN pip install --upgrade setuptools && \
          pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" \
          --global-option="--deprecated_fused_adam" --global-option="--xentropy" \
          --global-option="--fast_multihead_attn" ./ && \
-         pip install pyarrow spacy transformers tensorboard tensorboardX sacrebleu git+https://github.com/pltrdy/pyrouge && \
+         pip install pyarrow spacy transformers tensorboard tensorboardX pytorch-crf sacrebleu git+https://github.com/pltrdy/pyrouge && \
          cd /root/ && git clone https://github.com/pltrdy/files2rouge.git && \
          cd files2rouge && echo "" | python setup_rouge.py && python setup.py install
 
-# 已经加入bashrc中
-# ENTRYPOINT ["service", "ssh", "restart"]
 
 WORKDIR "/workspace/"
