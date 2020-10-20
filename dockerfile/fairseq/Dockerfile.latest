@@ -64,5 +64,7 @@ RUN pip install --upgrade setuptools && \
 
 WORKDIR "/workspace/"
 
+CMD service ssh restart && bash
+
 # ENTRYPOINT service ssh restart && bash
-ENTRYPOINT service ssh restart
+# ENTRYPOINT service ssh restart  由于ENTRYPOINT不能被覆盖，docker run -it bash不起作用了
