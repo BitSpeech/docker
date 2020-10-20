@@ -1,8 +1,8 @@
 # devel镜像才有nvcc. runtime 2.26G, devel 4.2G
 # from pytorch/pytorch:1.4-cuda10.1-cudnn7-runtime
 # from pytorch/pytorch:1.4-cuda10.1-cudnn7-devel
-from pytorch/pytorch:1.5.1-cuda10.1-cudnn7-devel
-
+# from pytorch/pytorch:1.5.1-cuda10.1-cudnn7-devel
+from pytorch/pytorch:1.6.0-cuda10.1-cudnn7-devel
 
 # 设置时区，并需要安装 tzdata
 ENV TZ=Asia/Shanghai
@@ -44,7 +44,7 @@ RUN mv /etc/ssh/sshd_config /etc/ssh/sshd_config_bak && \
          cat /etc/ssh/sshd_config_bak | sed 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' > /etc/ssh/sshd_config && \
          echo "root:123456" | chpasswd
 
-# 不需要这一样，因为容器启动时默认启动ssh
+# 容器启动时，默认不会启动sshd
 # RUN echo "service ssh restart" >> ~/.bashrc
 
 
@@ -63,3 +63,6 @@ RUN pip install --upgrade setuptools && \
 
 
 WORKDIR "/workspace/"
+
+# ENTRYPOINT service ssh restart && bash
+ENTRYPOINT service ssh restart
