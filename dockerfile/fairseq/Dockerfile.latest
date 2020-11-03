@@ -1,8 +1,11 @@
 # devel镜像才有nvcc. runtime 2.26G, devel 4.2G
 # from pytorch/pytorch:1.4-cuda10.1-cudnn7-runtime
 # from pytorch/pytorch:1.4-cuda10.1-cudnn7-devel
-# from pytorch/pytorch:1.5.1-cuda10.1-cudnn7-devel
+# from pytorch/pytorch:1.5.1-cuda10.1-cudnn7-devel   python 3.7.7
+# from pytorch/pytorch:1.6.0-cuda10.1-cudnn7-devel   python 3.7.7
+# from pytorch/pytorch:1.7.0-cuda11.0-cudnn8-devel
 from pytorch/pytorch:1.6.0-cuda10.1-cudnn7-devel
+
 
 # 设置时区，并需要安装 tzdata
 ENV TZ=Asia/Shanghai
@@ -30,6 +33,9 @@ ENV CUDA_HOME /usr/local/cuda
 ENV PATH /usr/local/cuda/bin:$PATH
 ENV LD_LIBRARY_PATH /usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
+# BUG修复 https://github.com/pytorch/pytorch/issues/37377
+ENV MKL_THREADING_LAYER GNU
+
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
          wget git vim openssh-server libxml-parser-perl && \
@@ -51,13 +57,16 @@ RUN mv /etc/ssh/sshd_config /etc/ssh/sshd_config_bak && \
 # Install fairseq, transformers, apex, pyarrow, files2rouge. 其中setup_rouge.py需要一个确认键
 # Reference: https://github.com/pytorch/fairseq/issues/1199   python setup.py build_ext --inplace &&
 RUN pip install --upgrade setuptools && \
+         cd /root/ && git clone https://github.com/shibing624/pycorrector.git && \
+         cd pycorrector && python setup.py install && \
+         pip install https://github.com/kpu/kenlm/archive/master.zip && \
          cd /root/ && git clone https://github.com/pytorch/fairseq && \
          cd fairseq && pip install --editable . && \
          cd /root/ && git clone https://github.com/NVIDIA/apex && cd apex && \
          pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" \
          --global-option="--deprecated_fused_adam" --global-option="--xentropy" \
          --global-option="--fast_multihead_attn" ./ && \
-         pip install pyarrow spacy transformers tensorboard tensorboardX pytorch-crf sacrebleu git+https://github.com/pltrdy/pyrouge && \
+         pip install pypinyin jieba pyarrow spacy transformers tensorboard tensorboardX pytorch-crf sacrebleu git+https://github.com/pltrdy/pyrouge && \
          cd /root/ && git clone https://github.com/pltrdy/files2rouge.git && \
          cd files2rouge && echo "" | python setup_rouge.py && python setup.py install
 
