@@ -1,9 +1,3 @@
----
-categories:
-  - docker
-  - tutorial
-abbrlink: '0'
----
 
 
 ![architecture](https://docs.docker.com/engine/images/architecture.svg)

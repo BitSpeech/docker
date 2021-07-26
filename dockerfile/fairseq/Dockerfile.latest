@@ -2,7 +2,8 @@
 # from pytorch/pytorch:1.4-cuda10.1-cudnn7-runtime
 # from pytorch/pytorch:1.4-cuda10.1-cudnn7-devel
 # from pytorch/pytorch:1.5.1-cuda10.1-cudnn7-devel  Ubuntu-18.04.3-LTS python-3.7.7
-# from pytorch/pytorch:1.6.0-cuda10.1-cudnn7-devel  Ubuntu-18.04.3-LTS python-3.7.7
+# from pytorch/pytorch:1.6.0-cuda10.1-cudnn7-devel  Ubuntu-18.04.3-LTS python-3.7.7  7G
+# from pytorch/pytorch:1.7.0-cuda11.0-cudnn8-devel  这个镜像为什么特别大，12G
 from pytorch/pytorch:1.7.0-cuda11.0-cudnn8-devel
 
 

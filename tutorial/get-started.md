@@ -54,6 +54,9 @@ docker rmi img_id      # 删除镜像
 docker rmi -f $(docker images -q)  # 删除所有镜像
 docker rmi $(docker images | grep '^<none>' | awk '{print $3}') # 删除所有None镜像
 docker rmi $(docker images -qf dangling=true)  #
+docker image prune   #  删除 所有未被 tag 标记和未被容器使用的镜像
+docker image prune -a   # 删除 所有未被容器使用的镜像
+docker image prune -a --force --filter "until=240h"  #
 docker pull repository:tag    # 拉取镜像，类似 git pull
 docker push repository:tag    # 上传镜像，类似git push
 ```
@@ -89,7 +92,9 @@ docker exec -it container_id/name bash  # 重新创建一个bash
 docker rm container_id/name
 # 8. 删除所有容器
 docker rm -f $(docker ps -aq)
-# 9. Copy a file from host to container 注意区别dockerfile的COPY命令
+# 9. 删除 所有停止运行的容器
+docker container prune
+# 10. Copy a file from host to container 注意区别dockerfile的COPY命令
 docker cp foo.txt 72ca2488b353:/foo.txt
 ```
 
@@ -98,6 +103,7 @@ docker cp foo.txt 72ca2488b353:/foo.txt
 {% note danger %}**思考**
 `attach` 与 `exec`的区别
 `docker cp` 与 dockerfile中的`COPY`的区别
+`-v`与 `-mount`的区别：
 `ctrl+p+q` 与 `ctrl+d`的区别  <!-- ctrl+p+q 后台运行容器，ctrl+d 退出容器 -->
 `exit`退出容器后，为什么容器并未删除？ <!-- 也许是为了保存状态，便于commit -->
 {% endnote %}
@@ -128,7 +134,7 @@ docker cp foo.txt 72ca2488b353:/foo.txt
 - **COPY**:
 - **VOLUME**: 授权访问从容器内到主机上的目录。用于containers之间共享数据
 - **WORKDIR**: 指定RUN、CMD与ENTRYPOINT命令的工作目录。
-- **ENTRYPOINT**:
+- **ENTRYPOINT**: 如果父镜像和子镜像同时指定了entrypoint，子镜像会覆盖父镜像
 - **CMD**: 提供了容器默认的执行命令
 
 **注意**
@@ -137,7 +143,9 @@ docker cp foo.txt 72ca2488b353:/foo.txt
 - `CMD`与 `ENTRYPOINT` 的区别：
   - `CMD`不能接受参数，运行时可被覆盖；
   - `ENTRYPOINT`能够接收参数，运行时不可被覆盖
-- `COPY`与映射`-v`的区别
+- `COPY`与映射`-v`的区别：
+- `ARG`与`ENV`的区别：
+
 
 [示例dockerfile](dockerfile/dockerfile.tf1.8-t2t1.6)
 
@@ -217,5 +225,5 @@ optinal:
 
 - [什么是 Docker ？ | 腾讯云社区 ](https://cloud.tencent.com/developer/article/1005172)
 - [Docker 入门教程 | 阮一峰](http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html)
-- [docker practice](https://yeasy.gitbooks.io/docker_practice/)
+- [docker 从入门到实践](https://yeasy.gitbooks.io/docker_practice/)
 - [Dockerfile best practices](https://github.com/hexops/dockerfile)

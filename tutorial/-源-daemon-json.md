@@ -1,9 +1,3 @@
----
-categories:
-  - docker
-  - tutorial
-abbrlink: '0'
----
 
 
 ## 背景
