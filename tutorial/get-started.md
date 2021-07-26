@@ -144,17 +144,23 @@ docker cp foo.txt 72ca2488b353:/foo.txt
   - `CMD`不能接受参数，运行时可被覆盖；
   - `ENTRYPOINT`能够接收参数，运行时不可被覆盖
 - `COPY`与映射`-v`的区别：
-- `ARG`与`ENV`的区别：
+- `ARG`与`ENV`的区别：`ARG`是构建参数，`ENV`是环境变量。区别是 `ARG` 所设置的构建环境的环境变量，在将来容器运行时是不会存在这些环境变量的。
 
 
 [示例dockerfile](dockerfile/dockerfile.tf1.8-t2t1.6)
 
 **多阶段构建**
 
-从17.05版本开始Docker在构建镜像时增加了新特性：多阶段构建(multi-stage builds)，将构建过程分为多个阶段，每个阶段都可以指定一个基础镜像，这样在一个Dockerfile就能将多个镜像的特性同时用到，
+从17.05版本开始Docker在构建镜像时增加了新特性：
+多阶段构建(multi-stage builds)，将构建过程分为多个阶段，每个阶段都可以指定一个基础镜像，这样在一个Dockerfile就能将多个镜像的特性同时用到，
 
+多阶段构建出来的镜像是以最后那个FROM为基础的。
 
 [multistage-build 官方文档](https://docs.docker.com/develop/develop-images/multistage-build/)
+
+- 示例1：为了编译一个go的可执行文件，需要引入golang这个官方镜像进行编译，这个镜像大小是810M，但是真正运行的时候是不需要如此大的镜像的。
+- 示例2：https://github.com/microsoft/recommenders/blob/main/tools/docker/Dockerfile
+
 
 
 ## build images

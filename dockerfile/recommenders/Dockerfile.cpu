@@ -111,7 +111,10 @@ RUN conda env update -f base.yaml && \
     python -m ipykernel install --user --name 'python3' --display-name 'python3'
 
 ARG HOME
-WORKDIR ${HOME}/recommenders
+
+# 修改默认目录，改用映射的方式
+# WORKDIR ${HOME}/recommenders
+WORKDIR ${HOME}/workspace
 
 EXPOSE 8888
 CMD ["jupyter", "notebook"]
