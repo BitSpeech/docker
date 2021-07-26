@@ -149,6 +149,13 @@ docker cp foo.txt 72ca2488b353:/foo.txt
 
 [示例dockerfile](dockerfile/dockerfile.tf1.8-t2t1.6)
 
+**多阶段构建**
+
+从17.05版本开始Docker在构建镜像时增加了新特性：多阶段构建(multi-stage builds)，将构建过程分为多个阶段，每个阶段都可以指定一个基础镜像，这样在一个Dockerfile就能将多个镜像的特性同时用到，
+
+
+[multistage-build 官方文档](https://docs.docker.com/develop/develop-images/multistage-build/)
+
 
 ## build images
 
@@ -160,6 +167,12 @@ docker build -f dockerfile . -t tensorflow/t2t:nmt
 ```sh
 cat dockerfile | docker build -
 ```
+
+参数
+```
+docker build -t recommenders:cpu --build-arg ENV="cpu" .
+```
+
 
 
 ## docker镜像升级
