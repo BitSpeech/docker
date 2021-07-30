@@ -20,6 +20,7 @@ https://github.com/docker-library/
 
 安装python包
 ```
+或者 
 pip install --no-cache-dir -i http://mirrors.jd.com/pypi/web/simple --trusted-host mirrors.jd.com numpy
 ```
 

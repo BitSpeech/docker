@@ -55,8 +55,8 @@ docker rmi -f $(docker images -q)  # 删除所有镜像
 docker rmi $(docker images | grep '^<none>' | awk '{print $3}') # 删除所有None镜像
 docker rmi $(docker images -qf dangling=true)  #
 docker image prune   #  删除 所有未被 tag 标记和未被容器使用的镜像
-docker image prune -a   # 删除 所有未被容器使用的镜像
-docker image prune -a --force --filter "until=240h"  #
+docker image prune -a   # 删除 所有未被容器使用的镜像  -a 等于 --all
+docker image prune -a --force --filter "until=240h"  # 删除 10天未被容器使用的镜像
 docker pull repository:tag    # 拉取镜像，类似 git pull
 docker push repository:tag    # 上传镜像，类似git push
 ```

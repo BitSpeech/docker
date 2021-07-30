@@ -1,3 +1,10 @@
+---
+categories:
+  - docker
+  - dockerfile
+  - nvidia
+abbrlink: '0'
+---
 
 
 

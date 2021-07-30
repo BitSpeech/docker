@@ -43,7 +43,8 @@ RUN mkdir ${HOME}/.jupyter && \
 FROM base AS cpu
 
 #RUN python recommenders/tools/generate_conda_file.py --name base
-RUN cd recommenders && python setup.py install easy_install ms-recommenders[examples]
+#RUN cd recommenders && python setup.py install easy_install ms-recommenders[examples]
+RUN cd recommenders && python setup.py install
 
 
 # Final Stage
