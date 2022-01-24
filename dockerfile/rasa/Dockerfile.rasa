@@ -1,0 +1,20 @@
+
+from rasa/rasa
+
+
+
+# ========================安装依赖===============================
+RUN apt-get update && apt-get install -y --no-install-recommends \
+         wget git vim openssh-server libxml-parser-perl && \
+         DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata && \
+         apt-get clean && \
+         rm -rf /var/lib/apt/lists/*
+
+# ========================配置sshd===============================
+# 用于pycharm远程调试。参考 https://zhuanlan.zhihu.com/p/76469329
+# passwd修改密码，需要两段输入(用户名和密码)
+RUN mv /etc/ssh/sshd_config /etc/ssh/sshd_config_bak && \
+         cat /etc/ssh/sshd_config_bak | sed 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' > /etc/ssh/sshd_config && \
+         echo "root:123456" | chpasswd
+
+

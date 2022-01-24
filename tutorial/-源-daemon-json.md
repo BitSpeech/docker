@@ -26,18 +26,22 @@ EOF
 ```
 
 
+
 ## 新增insecure-registries
 
 修改 /etc/docker/daemon.json，添加一行。
 https://docs.docker.com/registry/insecure/
 
-```
+```json
 {
   "insecure-registries":["ai-image.jd.com"],
   "runtimes": {
   }
 }  
 ```
+
+- [mac下如何配置daemon.json](https://stackoverflow.com/questions/32808215/where-should-i-set-the-insecure-registry-flag-on-mac-os)
+
 
 然后
 ```
@@ -46,7 +50,7 @@ docker pull ai-image.jd.com/nlp/dnnlm:0.0.5
 
 
 
-ss
+
 
 
 

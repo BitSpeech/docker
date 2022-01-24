@@ -89,12 +89,14 @@ service docker stop
 然后移动整个/var/lib/docker目录到目的路径：
 
 ```sh
-mv /var/lib/docker /root/data/docker
-ln -s /root/data/docker /var/lib/docker
+TARGET_DIR=/data/docker/docker
+mv /var/lib/docker ${TARGET_DIR}
+ln -s ${TARGET_DIR} /var/lib/docker
 ```
 
 这时候启动Docker时发现存储目录依旧是/var/lib/docker，但是实际上是存储在数据盘的，你可以在数据盘上看到容量变化。
 
+https://blog.csdn.net/weixin_32820767/article/details/81196250
 
 # docker的挂载
 

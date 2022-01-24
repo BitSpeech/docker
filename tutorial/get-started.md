@@ -49,7 +49,7 @@ Docker 公司的口号：Build，Ship，and Run Any App，Anywhere。大概意�
 ```sh
 docker images          # 列出本机所有的docker镜像
 docker inspect img_id  # 查看镜像详细信息
-docker history img_id  # 查看镜像分层
+docker history --no-trunc img_id  # 查看镜像分层
 docker rmi img_id      # 删除镜像
 docker rmi -f $(docker images -q)  # 删除所有镜像
 docker rmi $(docker images | grep '^<none>' | awk '{print $3}') # 删除所有None镜像
@@ -127,6 +127,7 @@ docker cp foo.txt 72ca2488b353:/foo.txt
 ## 自己写dockerfile
 
 - **FROM**: 指定基础镜像
+- **FROM AS**: 指定基础镜像
 - **MAINTAINER**：用来指定维护者的姓名和联系方式
 - **ENV**: 设置环境变量
 - **RUN**：在shell或者exec的环境下执行的命令。RUN指令会在新创建的镜像上添加新的层。
@@ -135,14 +136,20 @@ docker cp foo.txt 72ca2488b353:/foo.txt
 - **VOLUME**: 授权访问从容器内到主机上的目录。用于containers之间共享数据
 - **WORKDIR**: 指定RUN、CMD与ENTRYPOINT命令的工作目录。
 - **ENTRYPOINT**: 如果父镜像和子镜像同时指定了entrypoint，子镜像会覆盖父镜像
+  - `ENTRYPOINT ["echo", "Hello"]`
+  - `ENTRYPOINT ["/bin/sh" "-c" "sh /home/admin/start_container.sh"]`
+  - `ENTRYPOINT ["/bin/sh" "-c" "sh"]`
 - **CMD**: 提供了容器默认的执行命令
-
+  - `CMD ["/bin/bash"]`
+  
 **注意**
 
 - `RUN` 指令只会在生成镜像的时候，保存数据文件，并不会保存任何运行的进程状态。比如启动某些service
 - `CMD`与 `ENTRYPOINT` 的区别：
-  - `CMD`不能接受参数，运行时可被覆盖；
-  - `ENTRYPOINT`能够接收参数，运行时不可被覆盖
+  - `CMD`不能接受参数，运行时覆盖示例：`docker run -it [IMAGE] /bin/bash`
+  - `ENTRYPOINT`能够接收参数，运行时覆盖示例：`docker run -it --entrypoint  /bin/bash [IMAGE]`
+  - ENTRYPOINT指令优先级更高
+  - 如果都有，CMD中的参数会被附加到ENTRYPOINT 指令的后面
 - `COPY`与映射`-v`的区别：
 - `ARG`与`ENV`的区别：`ARG`是构建参数，`ENV`是环境变量。区别是 `ARG` 所设置的构建环境的环境变量，在将来容器运行时是不会存在这些环境变量的。
 
@@ -199,6 +206,11 @@ docker build -t recommenders:cpu --build-arg ENV="cpu" .
 
 **扩展阅读**:
 - [Best practices for writing Dockerfiles | 官网](https://docs.docker.com/develop/develop-images/dockerfile_best-practices)
+
+
+## 镜像导出和加载
+
+`docker load < nginx-centos7.4.tar`
 
 
 # 练习
