@@ -1,7 +1,25 @@
+# ==================================================================
+# build & run
+# docker build -t  bitspeech/rasa:latest -f Dockerfile.rasa .
+# docker run --entrypoint bash -it -v $(pwd):/app bitspeech/rasa:latest 
+#
+# docker run --entrypoint bash -it -v $(pwd):/app --user $(id -u ${USER}):$(id -g ${USER}) bitspeech/rasa:latest 
+# docker run --entrypoint bash -it -v $(pwd):/app -u $(id -u):$(id -g) bitspeech/rasa:latest 
+#
+# FROM https://github.com/RasaHQ/rasa/blob/main/Dockerfile
+# ==================================================================
 
-from rasa/rasa
+FROM rasa/rasa
 
 
+# 以下影响到print的默认编码和解码(如果默认gbk，print可能会出现 gbk codec can't encode charactor **)
+ENV PYTHONIOENCODING UTF-8
+# 以下影响到open的默认编码，影响vim打开的默认编码
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
+
+# 以 root 执行的脚本
+USER root
 
 # ========================安装依赖===============================
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -17,4 +35,8 @@ RUN mv /etc/ssh/sshd_config /etc/ssh/sshd_config_bak && \
          cat /etc/ssh/sshd_config_bak | sed 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' > /etc/ssh/sshd_config && \
          echo "root:123456" | chpasswd
 
+
+# docker run -v 映射后，会出现no permission的问题。
+# USER 1001
+# USER rasa
 
