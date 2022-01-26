@@ -1,15 +1,21 @@
 # ==================================================================
 # build & run
-# docker build -t  bitspeech/rasa:latest -f Dockerfile.rasa .
-# docker run --entrypoint bash -it -v $(pwd):/app bitspeech/rasa:latest 
-#
+# docker build -t  bitspeech/rasa:latest-full -f Dockerfile.rasa .
+# docker run --entrypoint bash -it -v $(pwd):/app bitspeech/rasa:latest-full 
+# docker run --entrypoint bash -it -v $(pwd):/app bitspeech/rasa:2.8.22-full  
+# docker run --entrypoint bash -it -v $(pwd):/app --network=host bitspeech/rasa:1.9.5-full  
 # docker run --entrypoint bash -it -v $(pwd):/app --user $(id -u ${USER}):$(id -g ${USER}) bitspeech/rasa:latest 
 # docker run --entrypoint bash -it -v $(pwd):/app -u $(id -u):$(id -g) bitspeech/rasa:latest 
 #
-# FROM https://github.com/RasaHQ/rasa/blob/main/Dockerfile
+# 参考： 
+# - https://github.com/RasaHQ/rasa/blob/main/Dockerfile 
+# - https://github.com/RasaHQ/rasa/blob/main/docker/Dockerfile.full
 # ==================================================================
 
-FROM rasa/rasa
+# full 比 base 多了 mitie
+# FROm rasa/rasa:1.9.5-full
+# FROM rasa/rasa:2.8.22-full
+FROM rasa/rasa:last-full
 
 
 # 以下影响到print的默认编码和解码(如果默认gbk，print可能会出现 gbk codec can't encode charactor **)
@@ -34,6 +40,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN mv /etc/ssh/sshd_config /etc/ssh/sshd_config_bak && \
          cat /etc/ssh/sshd_config_bak | sed 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' > /etc/ssh/sshd_config && \
          echo "root:123456" | chpasswd
+
+
+
+# full里有jieba
+RUN pip install flask
 
 
 # docker run -v 映射后，会出现no permission的问题。
