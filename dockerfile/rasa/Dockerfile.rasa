@@ -27,6 +27,9 @@ ENV LC_ALL C.UTF-8
 # 以 root 执行的脚本
 USER root
 
+COPY config-mirror-for-debian.sh /home/
+RUN bash /home/config-mirror-for-debian.sh
+
 # ========================安装依赖===============================
 RUN apt-get update && apt-get install -y --no-install-recommends \
          wget git vim openssh-server libxml-parser-perl && \
