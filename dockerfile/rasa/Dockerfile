@@ -1,9 +1,13 @@
 # ==================================================================
 # build & run
-# docker build -t  bitspeech/rasa:latest-full -f Dockerfile.rasa .
-# docker run --entrypoint bash -it -v $(pwd):/app bitspeech/rasa:latest-full 
-# docker run --entrypoint bash -it -v $(pwd):/app bitspeech/rasa:2.8.22-full  
-# docker run --entrypoint bash -it -v $(pwd):/app --network=host bitspeech/rasa:1.9.5-full  
+# rasa_version=1.9.5-full
+# rasa_version=2.8.22-full
+# rasa_version=latest-full 
+# docker build -t  bitspeech/rasa:${rasa_version} -f Dockerfile .
+
+# docker run --entrypoint bash -it -v $(pwd):/app bitspeech/rasa:${rasa_version}
+# docker run --entrypoint bash -it -v $(pwd):/app -p 443:22 -p 8088:8088 bitspeech/rasa:${rasa_version}
+
 # docker run --entrypoint bash -it -v $(pwd):/app --user $(id -u ${USER}):$(id -g ${USER}) bitspeech/rasa:latest 
 # docker run --entrypoint bash -it -v $(pwd):/app -u $(id -u):$(id -g) bitspeech/rasa:latest 
 #
@@ -15,7 +19,7 @@
 # full 比 base 多了 mitie
 # FROm rasa/rasa:1.9.5-full
 # FROM rasa/rasa:2.8.22-full
-FROM rasa/rasa:last-full
+FROM rasa/rasa:latest-full
 
 
 # 以下影响到print的默认编码和解码(如果默认gbk，print可能会出现 gbk codec can't encode charactor **)
