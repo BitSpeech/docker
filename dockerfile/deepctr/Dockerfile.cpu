@@ -1,0 +1,47 @@
+# ==================================================================
+# build & push:
+# docker build -t  bitspeech/deepctr:0.8.6 -f Dockerfile .
+# docker push bitspeech/deepctr:0.8.6
+# ==================================================================
+FROM tensorflow/tensorflow:2.0.0-py3
+LABEL maintainer="xusong"
+
+
+# 设置时区，并需要安装 tzdata
+ENV TZ=Asia/Shanghai
+
+ENV PYTHONIOENCODING UTF-8
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
+
+
+# ========================安装依赖===============================
+RUN apt-get update && apt-get install -y --no-install-recommends \
+         wget curl git vim openssh-server libxml-parser-perl unzip  && \
+         DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata && \
+         apt-get clean && \
+         rm -rf /var/lib/apt/lists/*
+
+# ========================配置sshd===============================
+# 用于pycharm远程调试。参考 https://zhuanlan.zhihu.com/p/76469329
+# passwd修改密码，需要两段输入(用户名和密码)
+RUN mv /etc/ssh/sshd_config /etc/ssh/sshd_config_bak && \
+         cat /etc/ssh/sshd_config_bak | sed 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' > /etc/ssh/sshd_config && \
+         echo "root:123456" | chpasswd
+
+# 容器启动时，默认不会启动sshd
+# RUN echo "service ssh restart" >> ~/.bashrc
+
+
+# 修复 scp问题  https://github.com/tensorflow/tensorflow/issues/30495
+RUN mv /etc/bash.bashrc /etc/bash_bak.bashrc 
+
+RUN pip install --upgrade setuptools -i https://pypi.tuna.tsinghua.edu.cn/simple && \
+         pip install -i https://pypi.tuna.tsinghua.edu.cn/simple tensorflow-serving-api==2.0.0 deepctr==0.8.6 flask boto3==1.20.20 \
+         deepmatch==0.2.0 elasticsearch5==5.5.6 numpy==1.18.1 pandas==0.23.4 redis==4.0.2 \
+         scikit-learn==0.19.2 torch==1.1.0 transformers==4.15.0
+
+
+WORKDIR "/workspace/"
+
+
