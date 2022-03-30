@@ -1,11 +1,17 @@
+# ==================================================================
+# build & push:
+# docker build -t  bitspeech/fairseq:latest -f Dockerfile .
+# docker push bitspeech/fairseq:latest
+# ==================================================================
 # devel镜像才有nvcc. runtime 2.26G, devel 4.2G
 # from pytorch/pytorch:1.4-cuda10.1-cudnn7-runtime
 # from pytorch/pytorch:1.4-cuda10.1-cudnn7-devel
 # from pytorch/pytorch:1.5.1-cuda10.1-cudnn7-devel  Ubuntu-18.04.3-LTS python-3.7.7
-# from pytorch/pytorch:1.6.0-cuda10.1-cudnn7-devel  Ubuntu-18.04.3-LTS python-3.7.7  7G
+# 1.6.0 Ubuntu-18.04.3-LTS python-3.7.7  7G
+from pytorch/pytorch:1.6.0-cuda10.1-cudnn7-devel  
 # from pytorch/pytorch:1.7.0-cuda11.0-cudnn8-devel  这个镜像为什么特别大，12G
 # from pytorch/pytorch:1.7.0-cuda11.0-cudnn8-devel  
-from pytorch/pytorch:1.9.1-cuda11.1-cudnn8-devel
+# from pytorch/pytorch:1.9.1-cuda11.1-cudnn8-devel
 # from pytorch/pytorch:1.10.0-cuda11.3-cudnn8-devel
 
 
@@ -77,7 +83,7 @@ RUN pip install --upgrade setuptools && \
          cd files2rouge && echo "" | python setup_rouge.py && python setup.py install && \
          \
 # other packages
-         pip install pypinyin jieba pyarrow spacy transformers datasets tensorboard tensorboardX pytorch-crf sacrebleu && \
+         pip install pypinyin jieba pyarrow spacy transformers==4.12.5 datasets tensorboard tensorboardX pytorch-crf sacrebleu && \
 # 升级 numpy >= 1.20, 升级 mkl >=2.4.0  https://github.com/pytorch/pytorch/issues/37377
          pip uninstall -y numpy mkl-service && pip install numpy mkl-service
 

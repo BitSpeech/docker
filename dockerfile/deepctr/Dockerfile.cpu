@@ -3,7 +3,7 @@
 # docker build -t  bitspeech/deepctr:0.8.6 -f Dockerfile .
 # docker push bitspeech/deepctr:0.8.6
 # ==================================================================
-FROM tensorflow/tensorflow:2.0.0-py3
+FROM tensorflow/tensorflow:2.1.0-py3
 LABEL maintainer="xusong"
 
 
@@ -37,7 +37,7 @@ RUN mv /etc/ssh/sshd_config /etc/ssh/sshd_config_bak && \
 RUN mv /etc/bash.bashrc /etc/bash_bak.bashrc 
 
 RUN pip install --upgrade setuptools -i https://pypi.tuna.tsinghua.edu.cn/simple && \
-         pip install -i https://pypi.tuna.tsinghua.edu.cn/simple tensorflow-serving-api==2.0.0 deepctr==0.8.6 flask boto3==1.20.20 \
+         pip install -i https://pypi.tuna.tsinghua.edu.cn/simple tensorflow-serving-api==2.1.0 deepctr==0.8.6 scipy flask boto3==1.20.20 \
          deepmatch==0.2.0 elasticsearch5==5.5.6 numpy==1.18.1 pandas==0.23.4 redis==4.0.2 \
          scikit-learn==0.19.2 torch==1.1.0 transformers==4.15.0
 
