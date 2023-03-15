@@ -66,8 +66,9 @@ docker push repository:tag    # 上传镜像，类似git push
 ```sh
 # 1. 基于镜像启动一个容器
 NAME=name_test           # 命名你的容器，姓名_任务_其他
-PROJECT_DIR=`pwd`/tutorial
-nvidia-docker run -it \
+PROJECT_DIR=`pwd`/tutorial  
+# --rm标志表示容器在停止时被删除
+nvidia-docker run -it --rm \ 
   --name $NAME \
   -v $PROJECT_DIR:/root/  \
   tensorflow/tensorflow:latest-gpu bash
@@ -139,8 +140,13 @@ docker cp foo.txt 72ca2488b353:/foo.txt
   - `ENTRYPOINT ["echo", "Hello"]`
   - `ENTRYPOINT ["/bin/sh" "-c" "sh /home/admin/start_container.sh"]`
   - `ENTRYPOINT ["/bin/sh" "-c" "sh"]`
+  - `ENTRYPOINT service ssh restart && bash` 
 - **CMD**: 提供了容器默认的执行命令
   - `CMD ["/bin/bash"]`
+  - `CMD service ssh restart && bash`
+  - `CMD service ssh restart`  ，这是个错误示例，因为docker run 时不指定cmd会导致容器退出，指定cmd则会覆盖该命令
+  
+  
   
 **注意**
 
@@ -148,8 +154,9 @@ docker cp foo.txt 72ca2488b353:/foo.txt
 - `CMD`与 `ENTRYPOINT` 的区别：
   - `CMD`不能接受参数，运行时覆盖示例：`docker run -it [IMAGE] /bin/bash`
   - `ENTRYPOINT`能够接收参数，运行时覆盖示例：`docker run -it --entrypoint  /bin/bash [IMAGE]`
-  - ENTRYPOINT指令优先级更高
-  - 如果都有，CMD中的参数会被附加到ENTRYPOINT 指令的后面
+  - ENTRYPOINT 指令优先级更高
+  - `实际执行参数` = `ENTRYPOINT` + `CMD`
+    - [示例1](https://yeasy.gitbook.io/docker_practice/image/dockerfile/entrypoint)： `ENTRYPOINT [ "curl", "-s", "http://myip.ipip.net" ]` ，运行容器命令是 `docker run myip -i` 
 - `COPY`与映射`-v`的区别：
 - `ARG`与`ENV`的区别：`ARG`是构建参数，`ENV`是环境变量。区别是 `ARG` 所设置的构建环境的环境变量，在将来容器运行时是不会存在这些环境变量的。
 

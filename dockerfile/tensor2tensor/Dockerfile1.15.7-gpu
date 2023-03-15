@@ -1,9 +1,17 @@
-FROM tensorflow/tensorflow:1.12.0-devel-gpu
-LABEL maintainer "xusong <song.xu01@bitmain.com>"
+# https://github.com/tensorflow/tensor2tensor/issues/1771  这个版本有问题，支持tf2不够好
+# https://www.cnblogs.com/cnDqf/p/16010639.html
+
+
+# docker build -t  bitspeech/tensor2tensor:1.15.7 -f Dockerfile .
+# https://github.com/tensorflow/tensor2tensor/blob/master/setup.py
+FROM tensorflow/tensorflow:1.15.0-gpu-py3
+# FROM tensorflow/tensorflow:1.15.0-gpu-py3
+LABEL maintainer "xusong <xusong28@jd.com>"
 
 # if got error when apt-get udpate, try to uncomment the following lines
 # RUN rm /etc/apt/sources.list.d/nvidia-ml.list && \
 #         rm /etc/apt/sources.list.d/cuda.list
+
 
 
 # install tensorflow_model_server https://www.tensorflow.org/serving/setup#installing_the_modelserver
@@ -15,7 +23,7 @@ RUN echo "deb [arch=amd64] http://storage.googleapis.com/tensorflow-serving-apt 
         curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
         echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
         apt-get update && apt-get install -y --no-install-recommends \
-        build-essential vim nodejs yarn ffmpeg sox autoconf automake libtool && \
+        build-essential apt-utils vim nodejs yarn ffmpeg sox autoconf automake libtool tensorflow-model-server && \
 # install tensorflow-model-server
         \
 # apt-get clean
@@ -24,28 +32,13 @@ RUN echo "deb [arch=amd64] http://storage.googleapis.com/tensorflow-serving-apt 
         rm -rf /var/lib/apt/lists/*
 
 
-# install protobuf:  https://github.com/google/protobuf/blob/master/src/README.md
-
-# RUN git clone https://github.com/google/protobuf.git && \
-#         cd protobuf && git checkout  \
-#         git submodule update --init --recursive && \
-#         ./autogen.sh && ./configure && \
-#         make && make check && make install && ldconfig
-
 
 
 # --index https://mirrors.aliyun.com/pypi/simple/
 RUN pip install -U pip && pip install --no-cache-dir \
-        tensor2tensor==1.11.0  \
-        jieba \
-        tensorflow_hub==0.2.0
-# tensorflowjs tensorflow-serving-api==1.12.0
-
-# build tensorflow for C++: https://blog.csdn.net/rockingdingo/article/details/75452711
-# RUN git clone https://github.com/tensorflow/tensorflow tensorflow-1.10 && \
-#        cd tensorflow-1.10 && git checkout r1.10 && \
-#        ./configure && \
-#        bazel build --config=opt --config=cuda //tensorflow:libtensorflow_cc.so
+        tensorflow-hub==0.1.1 \
+        tensor2tensor==1.15.7  \
+        jieba
 
 
 

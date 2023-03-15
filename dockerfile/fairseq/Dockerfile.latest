@@ -40,9 +40,15 @@ ENV CUDA_HOME /usr/local/cuda
 ENV PATH /usr/local/cuda/bin:$PATH
 ENV LD_LIBRARY_PATH /usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
+
+
 # BUG修复 https://github.com/pytorch/pytorch/issues/37377
 ENV MKL_THREADING_LAYER GNU
 
+
+# if got error when apt-get udpate, try to uncomment the following lines
+# RUN rm /etc/apt/sources.list.d/nvidia-ml.list && \
+#   rm /etc/apt/sources.list.d/cuda.list
 
 # ========================安装依赖===============================
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -61,8 +67,8 @@ RUN mv /etc/ssh/sshd_config /etc/ssh/sshd_config_bak && \
 # 容器启动时，默认不会启动sshd
 # RUN echo "service ssh restart" >> ~/.bashrc
 
-
-RUN pip install --upgrade setuptools && \
+RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple && \
+         pip install --upgrade setuptools && \
          \
 # install pycorrector
          cd /root/ && git clone https://github.com/shibing624/pycorrector.git && \

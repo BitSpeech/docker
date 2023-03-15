@@ -34,4 +34,11 @@ pip install --no-cache-dir -i http://mirrors.jd.com/pypi/web/simple --trusted-ho
 ```
 ```
 
-#
+## 配置ssh 及密码
+
+
+
+
+参考：https://github.com/EleutherAI/gpt-neox/blob/main/Dockerfile#L34
+
+## 

@@ -1,4 +1,8 @@
 
+https://hub.docker.com/r/chaoyiyuan/tensorrt8
+
+
+
 
 ```bash
 # 首先下载tensorRT (还要填一堆表格...)
